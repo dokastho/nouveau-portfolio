@@ -9,37 +9,25 @@ from api.model import get_db, check_session
 @porto.app.route("/api/v1/containers/")
 def get_all_containers():
     connection = get_db()
-    cur = connection.execute(
-        "SELECT *"
-        "FROM containers",
-        ()
-    )
-    
+    cur = connection.execute("SELECT * FROM containers", ())
+
     containers = cur.fetchall()
-    
+
     for container in containers:
         c_id = container["id"]
         cur = connection.execute(
-            "SELECT *"
-            "FROM tags_to_containers"
-            "WHERE cId = ?",
-            (c_id,)
+            "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
         )
         tags = cur.fetchall()
 
         container["tags"] = []
         for tag in tags:
             t_id = tag["id"]
-            cur = connection.execute(
-                "SELECT *"
-                "FROM tags"
-                "WHERE id = ?",
-                (t_id,)
-            )
+            cur = connection.execute("SELECT * FROM tags WHERE id = ?", (t_id,))
             container["tags"].append(cur.fetchone())
             pass
         pass
-    
+
     return flask.jsonify(containers), 204
 
 
@@ -50,7 +38,7 @@ def update_container():
         flask.abort(403)
         pass
 
-    body = flask.request.json
+    body = flask.request.get_json()
     if body is None:
         flask.abort(400)
         pass
@@ -78,10 +66,10 @@ def update_container():
             ts,
             container_id,
             logname,
-        )
+        ),
     )
     cur.fetchone()
-    
+
     data = body
     data["ts"] = arrow.utcnow().humanize()
 
@@ -95,7 +83,7 @@ def delete_container():
         flask.abort(403)
         pass
 
-    body = flask.request.json
+    body = flask.request.get_json()
     if body is None:
         flask.abort(400)
         pass
@@ -111,12 +99,11 @@ def delete_container():
 
     connection = get_db()
     cur = connection.execute(
-        "DELETE FROM containers"
-        "WHERE id = ? AND owner = ?",
+        "DELETE FROM containers WHERE id = ? AND owner = ?",
         (
             container_id,
             logname,
-        )
+        ),
     )
     cur.fetchone()
 
@@ -130,7 +117,7 @@ def create_container():
         flask.abort(403)
         pass
 
-    body = flask.request.json
+    body = flask.request.get_json()
     if body is None:
         flask.abort(400)
         pass
@@ -147,16 +134,13 @@ def create_container():
 
     connection = get_db()
     cur = connection.execute(
-        "INSERT INTO containers"
-        "(owner, name, content) "
-        "VALUES (?, ?, ?)",
+        "INSERT INTO containers (owner, name, content) VALUES (?, ?, ?)",
         (
             logname,
             name,
             content,
-        )
+        ),
     )
     cur.fetchone()
 
     return flask.Response(status=204)
-
