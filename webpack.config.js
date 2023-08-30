@@ -3,10 +3,10 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    index: './app/js/index.jsx',
+    index: './porto/js/index.jsx',
   },
   output: {
-    path: path.join(__dirname, '/app/static/js/'),
+    path: path.join(__dirname, '/porto/static/js/'),
     filename: '[name].bundle.js',
   },
   module: {
