@@ -22,7 +22,7 @@ def get_all_containers():
 
         container["tags"] = []
         for tag in tags:
-            t_id = tag["id"]
+            t_id = tag["tId"]
             cur = connection.execute("SELECT * FROM tags WHERE id = ?", (t_id,))
             container["tags"].append(cur.fetchone())
             pass
@@ -122,7 +122,7 @@ def create_container():
         flask.abort(400)
         pass
 
-    keys = ["name", "content"]
+    keys = ["name", "content", "topic"]
     for key in keys:
         if key not in body:
             flask.abort(400)
@@ -131,14 +131,16 @@ def create_container():
 
     name = body["name"]
     content = body["content"]
+    topic = body["topic"]
 
     connection = get_db()
     cur = connection.execute(
-        "INSERT INTO containers (owner, name, content) VALUES (?, ?, ?)",
+        "INSERT INTO containers (owner, name, content, topic) VALUES (?, ?, ?, ?)",
         (
             logname,
             name,
             content,
+            topic,
         ),
     )
     cur.fetchone()

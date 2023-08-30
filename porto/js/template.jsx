@@ -20,8 +20,8 @@ class T extends React.Component {
   render() {
     const { } = this.state;
     return (
-      <div>
-      </div>
+      <>
+      </>
     );
   }
 }
@@ -36,12 +36,3 @@ T.defaultProps = {
 };
 
 export default T
-
-// OR
-
-render(
-  <div>
-    <T />
-  </div>,
-  document.getElementById('reactEntry'),
-);

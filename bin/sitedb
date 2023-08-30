@@ -29,7 +29,9 @@ case $1 in
     ;;
   "dump")
     sqlite3 -batch -line var/porto.sqlite3 'select * from users'
-    sqlite3 -batch -line var/porto.sqlite3 'select * from topics'
+    sqlite3 -batch -line var/porto.sqlite3 'select * from containers'
+    sqlite3 -batch -line var/porto.sqlite3 'select * from tags'
+    sqlite3 -batch -line var/porto.sqlite3 'select * from tags_to_containers'
     ;;
   *)
     usage

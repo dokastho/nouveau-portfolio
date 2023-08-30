@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 
+const componentId = "Bio";
+
 class Bio extends React.Component {
 
   constructor(props) {
@@ -20,8 +22,8 @@ class Bio extends React.Component {
   render() {
     const { } = this.state;
     return (
-      <div>
-      </div>
+      <>
+      </>
     );
   }
 }

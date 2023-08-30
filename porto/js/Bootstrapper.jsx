@@ -23,6 +23,7 @@ class Bootstrapper extends React.Component {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         this.setState((prevState) => ({
           containers: data,
           loaded: {
