@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import Loading from './Loading';
 
@@ -8,7 +7,12 @@ class Bootstrapper extends React.Component {
     super(props);
     this.state = {
       containers: [],
-      loaded: false,
+      loaded: {
+        _bootstrapper: false,
+        _bio: true,
+        _container: true,
+        _projects: true,
+      },
     };
   }
 
@@ -19,10 +23,15 @@ class Bootstrapper extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
+        this.setState((prevState) => ({
           containers: data,
-          loaded: true
-        });
+          loaded: {
+            _bootstrapper: true,
+            _bio: prevState.loaded._bio,
+            _container: prevState.loaded._container,
+            _projects: prevState.loaded._projects,
+          }
+        }));
       })
       .catch((error) => console.log(error));
   }
@@ -32,16 +41,20 @@ class Bootstrapper extends React.Component {
       loaded,
       containers,
     } = this.state;
+    let isLoaded = true;
+    Object.keys(loaded).forEach(key => {
+      isLoaded = isLoaded && loaded[key];
+    });
     return (
       <>
         {
-          loaded ? (
+          isLoaded ? (
             null
           ) : (
             <Loading />
           )
         }
-        <div className={loaded ? 'loaded' : 'loading'}>
+        <div className={isLoaded ? 'loaded' : 'loading'}>
           hello world
         </div>
       </>
