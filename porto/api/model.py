@@ -4,7 +4,7 @@ import hashlib
 import sqlite3
 import uuid
 import pathlib
-import pennington_photo
+import porto
 import flask
 
 
@@ -24,7 +24,7 @@ def get_db():
     https://flask.palletsprojects.com/en/1.0.x/appcontext/#storing-data
     """
     if 'sqlite_db' not in flask.g:
-        db_filename = pennington_photo.app.config['DATABASE_FILENAME']
+        db_filename = porto.app.config['DATABASE_FILENAME']
         flask.g.sqlite_db = sqlite3.connect(str(db_filename))
         flask.g.sqlite_db.row_factory = dict_factory
         # Foreign keys have to be enabled per-connection.  This is an sqlite3
@@ -33,7 +33,7 @@ def get_db():
     return flask.g.sqlite_db
 
 
-@pennington_photo.app.teardown_appcontext
+@porto.app.teardown_appcontext
 def close_db(error):
     """Close the database at the end of a request.
 

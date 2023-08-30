@@ -2,20 +2,20 @@
 import uuid
 import hashlib
 import os
-import pennington_photo
+import porto
 import arrow
-from pennington_photo.common import model
+from porto.api.model import *
 from flask import abort, redirect, render_template, Response, request, session
 
 
-@pennington_photo.app.route('/accounts/', methods=['POST'])
+@porto.app.route('/accounts/', methods=['POST'])
 def accounts():
     """/accounts/?target=URL Immediate redirect. No screenshot."""
-    with pennington_photo.app.app_context():
-        connection = model.get_db()
+    with porto.app.app_context():
+        connection = get_db()
 
         # check if target is unspecified or blank
-        target = model.get_target()
+        target = get_target()
         # get operation
         operation = request.form.get('operation')
         if operation is None:
@@ -68,7 +68,7 @@ def accounts():
 
 def do_login(uname, pword):
     """Login user with username and password."""
-    logname = model.check_authorization(uname, pword)
+    logname = check_authorization(uname, pword)
     if not logname:
         return False
 
@@ -112,7 +112,7 @@ def do_delete(connection):
     if 'logname' not in session:
         abort(403)
         
-    if not model.get_logname():
+    if not get_logname():
         abort(403)
 
     uname = request.get_json()["user"]
@@ -145,10 +145,10 @@ def do_update_password(connection, info):
     cur.fetchone()
 
 
-@pennington_photo.app.route('/accounts/login/')
+@porto.app.route('/accounts/login/')
 def login():
     """Render login page."""
-    with pennington_photo.app.app_context():
+    with porto.app.app_context():
 
         # redirect if a session cookie exists
         if 'logname' not in session:
@@ -163,7 +163,7 @@ def login():
         return redirect('/')
 
 
-@pennington_photo.app.route('/accounts/logout/', methods=['GET'])
+@porto.app.route('/accounts/logout/', methods=['GET'])
 def logout():
     """Log out user and redirects to login."""
     session.clear()
