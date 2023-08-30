@@ -11,6 +11,7 @@ class Bio extends React.Component {
     this.state = {
       // state attributes go here
       // a: props.a
+      containers: [],
     };
   }
 
@@ -23,10 +24,18 @@ class Bio extends React.Component {
   }
 
   render() {
-    const { } = this.state;
+    const {
+      containers
+    } = this.state;
     return (
       <>
-        <Container />
+        {
+          containers.map((container) => {
+            return (
+              <Container key={`bio-container-${container.id}`} container={container} />
+            )
+          })
+        }
       </>
     );
   }
@@ -34,7 +43,8 @@ class Bio extends React.Component {
 
 Bio.propTypes = {
   // prop types go here
-  // s: PropTypes.string.isRequired,
+  containers: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default Bio
+export default Bio;
+export { componentId as bioId }

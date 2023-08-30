@@ -7,33 +7,71 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // state attributes go here
-      // a: props.a
+      name: '',
+      content: '',
+      id: 0
     };
+    this.updateContainer = this.updateContainer.bind(this);
   }
 
   componentDidMount() {
-    const { } = this.props;
+    const { container } = this.props;
+    const {
+      name,
+      content,
+      id
+    } = container;
 
-    this.setState({});
+    this.setState({
+      name,
+      content,
+      id
+    });
+  }
+
+  updateContainer() {
+    const {
+      name,
+      content,
+      id
+    } = this.state;
+    fetch(`/api/v1/containers/update/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, content, id }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .catch((error) => console.log(error));
   }
 
   render() {
-    const { } = this.state;
+    const {
+      name,
+      content
+    } = this.state;
     return (
-      <div>
-        This is a container
-        <TagBank />
-      </div>
+      <>
+        <div className='container'>
+          <h1 className='container-name'>{name}</h1>
+          <div className='container-content'>{content}</div>
+          <TagBank />
+        </div>
+      </>
     );
   }
 }
 
 Container.propTypes = {
   // prop types go here
-  // id: PropTypes.number.isRequired,
-  // name: PropTypes.string.isRequired,
-  // content: PropTypes.string,
+  container: PropTypes.instanceOf(Object).isRequired,
   // tags: PropTypes.instanceOf(Array).isRequired,
 };
 
