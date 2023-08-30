@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react'
+import Container from './Container';
 
 const componentId = "Bio";
 
@@ -14,15 +15,18 @@ class Bio extends React.Component {
   }
 
   componentDidMount() {
-    const { } = this.props;
+    const {
+      containers
+    } = this.props;
 
-    this.setState({});
+    this.setState({ containers });
   }
 
   render() {
     const { } = this.state;
     return (
       <>
+        <Container />
       </>
     );
   }

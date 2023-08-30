@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react'
+import TagBank from './TagBank';
 
 class Container extends React.Component {
 
@@ -21,6 +22,8 @@ class Container extends React.Component {
     const { } = this.state;
     return (
       <div>
+        This is a container
+        <TagBank />
       </div>
     );
   }
@@ -28,10 +31,10 @@ class Container extends React.Component {
 
 Container.propTypes = {
   // prop types go here
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  content: PropTypes.string,
-  tags: PropTypes.instanceOf(Array).isRequired,
+  // id: PropTypes.number.isRequired,
+  // name: PropTypes.string.isRequired,
+  // content: PropTypes.string,
+  // tags: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default Container

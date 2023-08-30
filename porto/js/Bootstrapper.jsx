@@ -1,5 +1,6 @@
 import React from 'react'
 import Loading from './Loading';
+import Bio from './Bio';
 
 class Bootstrapper extends React.Component {
 
@@ -14,6 +15,10 @@ class Bootstrapper extends React.Component {
         _projects: true,
       },
     };
+
+    this.createContainer = this.createContainer.bind(this);
+    this.deleteContainer = this.deleteContainer.bind(this);
+    this.updateContainer = this.updateContainer.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +42,90 @@ class Bootstrapper extends React.Component {
       .catch((error) => console.log(error));
   }
 
+  createContainer(container) {
+    const {
+      name,
+      content,
+      topic
+    } = container;
+    fetch(`/api/v1/containers/new/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, content, topic }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        this.setState((prevState) => ({
+          containers: prevState.containers.push(container)
+        }));
+        return response.json();
+      })
+      .catch((error) => console.log(error));
+  }
+
+  deleteContainer(container) {
+    const {
+      id
+    } = container;
+    fetch(`/api/v1/containers/delete/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        this.setState((prevState) => ({
+          containers: prevState.containers.filter((c) => c.id !== id)
+        }));
+        return response.json();
+      })
+      .catch((error) => console.log(error));
+  }
+
+  updateContainer(container) {
+    const {
+      name,
+      content,
+      id
+    } = container;
+    fetch(`/api/v1/containers/update/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, content, id }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        // issue likely
+        // <-----------
+        this.setState((prevState) => ({
+          containers: prevState.containers.map((c) => {
+            if (c.id == id) {
+              return container;
+            } else {
+              return c;
+            }
+          })
+        }));
+        return response.json();
+      })
+      .catch((error) => console.log(error));
+  }
+
   render() {
     const {
       loaded,
@@ -56,7 +145,7 @@ class Bootstrapper extends React.Component {
           )
         }
         <div className={isLoaded ? 'loaded' : 'loading'}>
-          hello world
+          <Bio />
         </div>
       </>
     );
