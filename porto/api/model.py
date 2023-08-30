@@ -64,18 +64,6 @@ def get_target():
     return target
 
 
-def get_logname():
-    """Get the logname either from session or http basic auth."""
-    session_logname = check_session()
-    basic_logname = check_authorization()
-    if session_logname:
-        return session_logname
-    if basic_logname:
-        return basic_logname
-
-    return False
-
-
 def check_session():
     """Check if logname exists in session."""
     if 'logname' not in flask.session:

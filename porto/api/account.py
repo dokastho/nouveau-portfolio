@@ -112,7 +112,7 @@ def do_delete(connection):
     if 'logname' not in session:
         abort(403)
         
-    if not get_logname():
+    if not check_session():
         abort(403)
 
     uname = request.get_json()["user"]
