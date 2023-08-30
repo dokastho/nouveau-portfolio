@@ -15,21 +15,21 @@ fi
 case $1 in
   "create")
     mkdir -p var/uploads
-    sqlite3 var/homepage.sqlite3 < sql/schema.sql
-    sqlite3 var/homepage.sqlite3 < sql/data.sql
+    sqlite3 var/porto.sqlite3 < sql/schema.sql
+    sqlite3 var/porto.sqlite3 < sql/data.sql
     ;;
 
   "destroy")
-    rm -rf var/homepage.sqlite3 var/uploads
+    rm -rf var/porto.sqlite3 var/uploads
     ;;
   "reset")
-    rm -rf var/homepage.sqlite3
-    sqlite3 var/homepage.sqlite3 < sql/schema.sql
-    sqlite3 var/homepage.sqlite3 < sql/data.sql
+    rm -rf var/porto.sqlite3
+    sqlite3 var/porto.sqlite3 < sql/schema.sql
+    sqlite3 var/porto.sqlite3 < sql/data.sql
     ;;
   "dump")
-    sqlite3 -batch -line var/homepage.sqlite3 'select * from users'
-    sqlite3 -batch -line var/homepage.sqlite3 'select * from topics'
+    sqlite3 -batch -line var/porto.sqlite3 'select * from users'
+    sqlite3 -batch -line var/porto.sqlite3 'select * from topics'
     ;;
   *)
     usage

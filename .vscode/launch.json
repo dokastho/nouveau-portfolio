@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "portfolio",
+                "FLASK_APP": "porto",
                 "FLASK_DEBUG": "1"
             },
             "args": [

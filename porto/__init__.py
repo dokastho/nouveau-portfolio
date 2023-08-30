@@ -5,7 +5,7 @@ from flask_cors import CORS
 app = flask.Flask(__name__)  # pylint: disable=invalid-name
 CORS(app)
 # Read settings from config module (site/config.py)
-app.config.from_object('pennington_photo.config')
+app.config.from_object('porto.config')
 # Overlay settings read from a Python file whose path is set in the environment
 # variable SITE_SETTINGS. Setting this environment variable is optional.
 # Docs: http://flask.pocoo.org/docs/latest/config/
