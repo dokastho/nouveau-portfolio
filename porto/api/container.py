@@ -3,7 +3,7 @@
 import arrow
 import porto
 import flask
-from api.model import get_db, check_session
+from porto.api.model import get_db, check_session
 
 
 @porto.app.route("/api/v1/containers/")
@@ -28,7 +28,7 @@ def get_all_containers():
             pass
         pass
 
-    return flask.jsonify(containers), 204
+    return flask.jsonify(containers), 201
 
 
 @porto.app.route("/api/v1/containers/update/", methods=["POST"])
@@ -73,7 +73,7 @@ def update_container():
     data = body
     data["ts"] = arrow.utcnow().humanize()
 
-    return flask.jsonify(data), 204
+    return flask.jsonify(data), 201
 
 
 @porto.app.route("/api/v1/containers/delete/", methods=["POST"])

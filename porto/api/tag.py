@@ -3,7 +3,7 @@
 import random
 import porto
 import flask
-from api.model import get_db, check_session
+from porto.api.model import get_db, check_session
 
 
 @porto.app.route("/api/v1/tags/update/", methods=["POST"])
