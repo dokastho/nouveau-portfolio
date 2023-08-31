@@ -14,7 +14,7 @@ def get_all_containers():
 
     for container in containers:
         c_id = container["id"]
-        container["ts"] = arrow.utcnow().humanize()
+        container["ts"] = arrow.get(container["created"]).humanize()
         cur = connection.execute(
             "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
         )

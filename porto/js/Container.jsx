@@ -106,7 +106,6 @@ class Container extends React.Component {
                 updateContainer={this.updateContainer}
                 deleteContainer={deleteContainer}
               />
-              <div>Updated {ts}</div>
               <div className='pointer' onClick={() => { this.toggleSelect() }}>Done</div>
             </>
           ) : (
@@ -117,6 +116,7 @@ class Container extends React.Component {
             </div>
           )
         }
+        <div>Updated {ts}</div>
       </>
     );
   }
