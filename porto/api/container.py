@@ -14,7 +14,7 @@ def get_all_containers():
 
     for container in containers:
         c_id = container["id"]
-        container["created"] = arrow.utcnow().humanize()
+        container["ts"] = arrow.utcnow().humanize()
         cur = connection.execute(
             "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
         )
@@ -29,6 +29,29 @@ def get_all_containers():
         pass
 
     return containers
+
+
+def get_one_container(container_id):
+    connection = get_db()
+    cur = connection.execute("SELECT * FROM containers WHERE id = ?", (container_id,))
+
+    container = cur.fetchone()
+
+    container["ts"] = arrow.get(container["created"]).humanize()
+    cur = connection.execute(
+        "SELECT * FROM tags_to_containers WHERE cId = ?", (container_id,)
+    )
+    tags = cur.fetchall()
+
+    container["tags"] = []
+    for tag in tags:
+        t_id = tag["tId"]
+        cur = connection.execute("SELECT * FROM tags WHERE id = ?", (t_id,))
+        container["tags"].append(cur.fetchone())
+        pass
+    pass
+
+    return container
 
 
 @porto.app.route("/api/v1/containers/")
@@ -63,8 +86,8 @@ def update_container():
 
     connection = get_db()
     cur = connection.execute(
-        "UPDATE containers"
-        "SET name = ?, content = ?, created = ?"
+        "UPDATE containers "
+        "SET name = ?, content = ?, created = ? "
         "WHERE id = ? AND owner = ?",
         (
             name,
@@ -76,7 +99,7 @@ def update_container():
     )
     cur.fetchone()
 
-    return flask.jsonify(get_all_containers()), 201
+    return flask.jsonify(get_one_container(container_id)), 201
 
 
 @porto.app.route("/api/v1/containers/delete/", methods=["POST"])

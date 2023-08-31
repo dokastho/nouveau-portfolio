@@ -23,7 +23,6 @@ class Bootstrapper extends React.Component {
 
     this.createContainer = this.createContainer.bind(this);
     this.deleteContainer = this.deleteContainer.bind(this);
-    this.updateContainer = this.updateContainer.bind(this);
   }
 
   componentDidMount() {
@@ -99,34 +98,6 @@ class Bootstrapper extends React.Component {
       .catch((error) => console.log(error));
   }
 
-  updateContainer(container) {
-    const {
-      name,
-      content,
-      id
-    } = container;
-    fetch(`/api/v1/containers/update/`,
-      {
-        credentials: 'same-origin',
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, content, id }),
-      })
-      .then((response) => {
-        if (!response.ok) throw Error(response.statusText);
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({
-          containers: data,
-        });
-      })
-      .catch((error) => console.log(error));
-  }
-
   render() {
     const {
       loaded,
@@ -136,7 +107,6 @@ class Bootstrapper extends React.Component {
     const containerFunctions = {
       createContainer: this.createContainer,
       deleteContainer: this.deleteContainer,
-      updateContainer: this.updateContainer,
     }
 
     const bioContainers = containers.filter((container) => container.topic === bioId);
@@ -161,11 +131,11 @@ class Bootstrapper extends React.Component {
             containerFunctions={containerFunctions}
             containers={bioContainers}
           />
-          <Education
+          {/* <Education
             key={`edu-loaded-${eduContainers.length}`}
             containerFunctions={containerFunctions}
             containers={eduContainers}
-          />
+          /> */}
 
         </div>
       </>
@@ -174,4 +144,4 @@ class Bootstrapper extends React.Component {
 }
 
 export default Bootstrapper
-export {ADMIN}
+export { ADMIN }

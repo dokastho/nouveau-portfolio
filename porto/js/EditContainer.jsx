@@ -26,10 +26,10 @@ class EditContainer extends React.Component {
 
   componentDidMount() {
     const {
-      content
+      containerContent
     } = this.props;
 
-    this.setState({ containerContent: content });
+    this.setState({ containerContent });
   }
 
   handleChange(key, val) {
@@ -64,7 +64,8 @@ class EditContainer extends React.Component {
 
   render() {
     const {
-      containerContent
+      containerContent,
+      saveState
     } = this.state;
     const {
       name,
@@ -81,7 +82,11 @@ class EditContainer extends React.Component {
         <br />
         <label>Content</label>
         <div>placeholder</div>
+        <br />
         <ConfirmatoryButton text={'Delete Container'} callback={deleteContainer} args={{ id }} />
+        <br />
+        <br />
+        <div className='save-state'>{saveState}</div>
       </>
     );
   }
@@ -89,7 +94,7 @@ class EditContainer extends React.Component {
 
 EditContainer.propTypes = {
   // prop types go here
-  content: PropTypes.instanceOf(Object).isRequired,
+  containerContent: PropTypes.instanceOf(Object).isRequired,
   // updateContainer
   // deleteContainer
 };

@@ -12,8 +12,10 @@ class Container extends React.Component {
       name: '',
       content: '',
       id: 0,
+      ts: '',
       selected: false,
     };
+    this.updateContainer = this.updateContainer.bind(this);
     this.toggleSelect = this.toggleSelect.bind(this);
   }
 
@@ -22,13 +24,17 @@ class Container extends React.Component {
     const {
       name,
       content,
-      id
+      id,
+      ts,
+      created,
     } = container;
 
     this.setState({
       name,
       content,
-      id
+      id,
+      ts,
+      created,
     });
   }
 
@@ -39,15 +45,55 @@ class Container extends React.Component {
     this.setState({ selected: !selected });
   }
 
+  updateContainer(container) {
+    const {
+      name,
+      content,
+      id
+    } = container;
+    fetch(`/api/v1/containers/update/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, content, id }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        const {
+          name,
+          content,
+          id,
+          ts,
+          created,
+        } = data;
+        this.setState({
+          name,
+          content,
+          id,
+          ts,
+          created,
+        });
+      })
+      .catch((error) => console.log(error));
+  }
+
   render() {
     const {
       name,
       content,
       id,
-      selected
+      ts,
+      created,
+      selected,
     } = this.state;
     const {
-      updateContainer,
       deleteContainer,
     } = this.props;
     return (
@@ -55,15 +101,16 @@ class Container extends React.Component {
         {
           selected ? (
             <>
-            <EditContainer
-              content={{ name, content, id }}
-              updateContainer={updateContainer}
-              deleteContainer={deleteContainer}
-            />
-            <div className='pointer' onClick={() => { this.toggleSelect() }}>Done</div>
+              <EditContainer
+                containerContent={{ name, content, id }}
+                updateContainer={this.updateContainer}
+                deleteContainer={deleteContainer}
+              />
+              <div>Updated {ts}</div>
+              <div className='pointer' onClick={() => { this.toggleSelect() }}>Done</div>
             </>
           ) : (
-            <div className='container pointer' onClick={ADMIN ? () => { this.toggleSelect() } : null}>
+            <div key={created} className='container pointer' onClick={ADMIN ? () => { this.toggleSelect() } : null}>
               <h1 className='container-name'>{name}</h1>
               <div className='container-content'>{content}</div>
               <TagBank />
@@ -82,7 +129,3 @@ Container.propTypes = {
 };
 
 export default Container
-
-// name
-// content
-// tags

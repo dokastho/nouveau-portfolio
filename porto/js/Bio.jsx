@@ -36,7 +36,6 @@ class Bio extends React.Component {
     const {
       createContainer,
       deleteContainer,
-      updateContainer,
     } = containerFunctions;
 
     return (
@@ -50,7 +49,6 @@ class Bio extends React.Component {
                   key={`${componentId}-container-${container.id}`}
                   container={container}
                   deleteContainer={deleteContainer}
-                  updateContainer={updateContainer}
                 />
               )
             })
