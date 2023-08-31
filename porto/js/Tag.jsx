@@ -7,23 +7,36 @@ class Tag extends React.Component {
     super(props);
     this.state = {
       // state attributes go here
-      // a: props.a
+      tag: {
+        name: '',
+        colorHex: '',
+      }
     };
   }
 
   componentDidMount() {
-    const { } = this.props;
+    const {
+      tag
+    } = this.props;
 
-    this.setState({});
+    this.setState({
+      tag
+    });
   }
 
   render() {
-    const { } = this.state;
+    const {
+      tag
+    } = this.state;
+    const {
+      name,
+      colorHex,
+    } = tag;
     return (
       <>
-      <div>
-        This is a tag
-      </div>
+        <div className='tag' style={{ background: `#${colorHex}` }}>
+          {name}
+        </div>
       </>
     );
   }
@@ -32,6 +45,7 @@ class Tag extends React.Component {
 Tag.propTypes = {
   // prop types go here
   // s: PropTypes.string.isRequired,
+  tag: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Tag

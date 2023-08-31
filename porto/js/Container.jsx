@@ -9,10 +9,14 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      content: '',
-      id: 0,
-      ts: '',
+      container: {
+        name: '',
+        content: '',
+        id: 0,
+        ts: '',
+        created: '',
+        tags: [],
+      },
       selected: false,
     };
     this.updateContainer = this.updateContainer.bind(this);
@@ -20,21 +24,12 @@ class Container extends React.Component {
   }
 
   componentDidMount() {
-    const { container } = this.props;
     const {
-      name,
-      content,
-      id,
-      ts,
-      created,
-    } = container;
+      container
+    } = this.props;
 
     this.setState({
-      name,
-      content,
-      id,
-      ts,
-      created,
+      container
     });
   }
 
@@ -66,19 +61,8 @@ class Container extends React.Component {
         return response.json();
       })
       .then((data) => {
-        const {
-          name,
-          content,
-          id,
-          ts,
-          created,
-        } = data;
         this.setState({
-          name,
-          content,
-          id,
-          ts,
-          created,
+          container: data
         });
       })
       .catch((error) => console.log(error));
@@ -86,13 +70,17 @@ class Container extends React.Component {
 
   render() {
     const {
+      selected,
+      container
+    } = this.state;
+    const {
       name,
       content,
       id,
       ts,
       created,
-      selected,
-    } = this.state;
+      tags,
+    } = container;
     const {
       deleteContainer,
     } = this.props;
@@ -112,7 +100,10 @@ class Container extends React.Component {
             <div key={created} className='container pointer' onClick={ADMIN ? () => { this.toggleSelect() } : null}>
               <h1 className='container-name'>{name}</h1>
               <div className='container-content'>{content}</div>
-              <TagBank />
+              <TagBank
+               tags={tags}
+               containerId={id}
+               />
             </div>
           )
         }

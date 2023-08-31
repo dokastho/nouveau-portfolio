@@ -6,24 +6,24 @@ class TagBank extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      // state attributes go here
-      // a: props.a
-    };
-  }
-
-  componentDidMount() {
-    const { } = this.props;
-
-    this.setState({});
   }
 
   render() {
-    const { } = this.state;
+    const {
+      tags,
+      containerId,
+    } = this.props;
     return (
       <>
-      <div>This is a tag bank</div>
-      <Tag />
+        <div className='tag-bank'>
+          {
+            tags.map((tag) => {
+              return (
+                <Tag key={`${containerId}-tag-${tag.name}`} tag={tag} />
+              )
+            })
+          }
+        </div>
       </>
     );
   }
@@ -31,7 +31,8 @@ class TagBank extends React.Component {
 
 TagBank.propTypes = {
   // prop types go here
-  // s: PropTypes.string.isRequired,
+  containerId: PropTypes.number.isRequired,
+  tags: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default TagBank
