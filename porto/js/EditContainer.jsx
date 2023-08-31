@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react'
-import { bioId } from './Bio';
-// import { expId } from './Bio';
-// import { eduId } from './Bio';
-// import { prjId } from './Bio';
+import ConfirmatoryButton from './Buttons';
 
-class NewContainer extends React.Component {
+const SAVED = "Saved.";
+const SAVING = "Saving...";
+const UNSAVED = "Unsaved Changes.";
+
+class EditContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -13,24 +14,22 @@ class NewContainer extends React.Component {
       containerContent: {
         name: '',
         content: '',
-        topic: ''
+        id: 0,
       },
-      selected: false,
+      saveState: SAVED,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleSelect = this.toggleSelect.bind(this);
+    this.doSave = this.doSave.bind(this);
+
+    this.timeout = null;
   }
 
   componentDidMount() {
-    const { topic } = this.props;
     const {
-      containerContent
-    } = this.state;
+      content
+    } = this.props;
 
-    containerContent.topic = topic;
-
-    this.setState({ containerContent });
+    this.setState({ containerContent: content });
   }
 
   handleChange(key, val) {
@@ -38,86 +37,61 @@ class NewContainer extends React.Component {
       containerContent
     } = this.state;
     containerContent[key] = val;
-    this.setState({ containerContent });
+    this.setState({ containerContent, saveState: UNSAVED });
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+    this.timeout = setTimeout(() => {
+      this.timeout = null;
+      this.setState({ saveState: SAVING });
+      this.doSave();
+    }, 1000);
   }
 
-  handleSubmit() {
+  doSave() {
     const {
-      createContainer
+      updateContainer
     } = this.props;
     const {
       containerContent
     } = this.state;
-    createContainer(containerContent);
+    updateContainer(containerContent);
     this.setState({
-      containerContent: {
-        name: '',
-        content: '',
-      },
-      selected: false,
+      saveState: SAVED,
     })
-  }
-
-  toggleSelect() {
-    const {
-      selected
-    } = this.state;
-    if (selected) {
-      this.setState({
-        containerContent: {
-          name: '',
-          content: '',
-        },
-        selected: false,
-      })
-    } else {
-      this.setState({
-        selected: true,
-      });
-    } 
   }
 
   render() {
     const {
-      selected,
       containerContent
     } = this.state;
     const {
       name,
       content,
+      id,
     } = containerContent;
+    const {
+      deleteContainer
+    } = this.props;
     return (
       <>
-        {
-          selected ? (
-            <form onSubmit={this.handleSubmit}>
-              <label>Name</label>
-              <input type='text' value={name} required onChange={(e) => { this.handleChange('name', e.target.value) }} />
-              <br />
-              <label>Content</label>
-              <div>placeholder</div>
-              <br />
-              <input type='button' value={'cancel'} onClick={() => {this.toggleSelect()}} />
-              <br />
-              <input type='submit' value={'Create'} />
-            </form>
-          ) : (
-            <div className='create-container' onClick={() => { this.toggleSelect() }}>Create a new container</div>
-          )
-        }
+        <label>Name</label>
+        <input type='text' value={name} required onChange={(e) => { this.handleChange('name', e.target.value) }} />
+        <br />
+        <label>Content</label>
+        <div>placeholder</div>
+        <ConfirmatoryButton text={'Delete Container'} callback={deleteContainer} args={{ id }} />
       </>
     );
   }
 }
 
-NewContainer.propTypes = {
+EditContainer.propTypes = {
   // prop types go here
-  topic: PropTypes.string.isRequired,
-  // createContainer
+  content: PropTypes.instanceOf(Object).isRequired,
+  // updateContainer
+  // deleteContainer
 };
 
-export default NewContainer
-
-// name
-// content
-// tags
+export default EditContainer

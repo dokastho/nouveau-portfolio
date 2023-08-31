@@ -14,6 +14,7 @@ def get_all_containers():
 
     for container in containers:
         c_id = container["id"]
+        container["created"] = arrow.utcnow().humanize()
         cur = connection.execute(
             "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
         )
@@ -75,10 +76,7 @@ def update_container():
     )
     cur.fetchone()
 
-    data = body
-    data["ts"] = arrow.utcnow().humanize()
-
-    return flask.jsonify(data), 201
+    return flask.jsonify(get_all_containers()), 201
 
 
 @porto.app.route("/api/v1/containers/delete/", methods=["POST"])

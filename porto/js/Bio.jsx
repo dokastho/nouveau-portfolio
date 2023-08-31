@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import Container from './Container';
 import NewContainer from './NewContainer';
+import { ADMIN } from './Bootstrapper';
 
 const componentId = "Bio";
 
@@ -29,12 +30,13 @@ class Bio extends React.Component {
       containers
     } = this.state;
     const {
-      containerFunctions
+      containerFunctions,
     } = this.props;
 
     const {
       createContainer,
       deleteContainer,
+      updateContainer,
     } = containerFunctions;
 
     return (
@@ -44,11 +46,22 @@ class Bio extends React.Component {
           {
             containers.map((container) => {
               return (
-                <Container key={`${componentId}-container-${container.id}`} deleteContainer={deleteContainer} container={container} />
+                <Container
+                  key={`${componentId}-container-${container.id}`}
+                  container={container}
+                  deleteContainer={deleteContainer}
+                  updateContainer={updateContainer}
+                />
               )
             })
           }
-          <NewContainer key={`${componentId}-container-new`} createContainer={createContainer} topic={componentId} />
+          {
+            ADMIN ? <NewContainer
+              key={`${componentId}-container-new`}
+              createContainer={createContainer}
+              topic={componentId}
+            /> : null
+          }
         </div>
       </>
     );

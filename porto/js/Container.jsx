@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 import TagBank from './TagBank';
-import ConfirmatoryButton from './Buttons';
+import { ADMIN } from './Bootstrapper';
+import EditContainer from './EditContainer';
 
 class Container extends React.Component {
 
@@ -10,9 +11,10 @@ class Container extends React.Component {
     this.state = {
       name: '',
       content: '',
-      id: 0
+      id: 0,
+      selected: false,
     };
-    this.updateContainer = this.updateContainer.bind(this);
+    this.toggleSelect = this.toggleSelect.bind(this);
   }
 
   componentDidMount() {
@@ -30,46 +32,44 @@ class Container extends React.Component {
     });
   }
 
-  updateContainer() {
+  toggleSelect() {
     const {
-      name,
-      content,
-      id
+      selected
     } = this.state;
-    fetch(`/api/v1/containers/update/`,
-      {
-        credentials: 'same-origin',
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, content, id }),
-      })
-      .then((response) => {
-        if (!response.ok) throw Error(response.statusText);
-        return response.json();
-      })
-      .catch((error) => console.log(error));
+    this.setState({ selected: !selected });
   }
 
   render() {
     const {
       name,
       content,
-      id
+      id,
+      selected
     } = this.state;
     const {
-      deleteContainer
+      updateContainer,
+      deleteContainer,
     } = this.props;
     return (
       <>
-        <div className='container'>
-          <h1 className='container-name'>{name}</h1>
-          <div className='container-content'>{content}</div>
-          <TagBank />
-          <ConfirmatoryButton text={'Delete Container'} callback={deleteContainer} args={{id}} />
-        </div>
+        {
+          selected ? (
+            <>
+            <EditContainer
+              content={{ name, content, id }}
+              updateContainer={updateContainer}
+              deleteContainer={deleteContainer}
+            />
+            <div className='pointer' onClick={() => { this.toggleSelect() }}>Done</div>
+            </>
+          ) : (
+            <div className='container pointer' onClick={ADMIN ? () => { this.toggleSelect() } : null}>
+              <h1 className='container-name'>{name}</h1>
+              <div className='container-content'>{content}</div>
+              <TagBank />
+            </div>
+          )
+        }
       </>
     );
   }
@@ -79,7 +79,6 @@ Container.propTypes = {
   // prop types go here
   container: PropTypes.instanceOf(Object).isRequired,
   // tags: PropTypes.instanceOf(Array).isRequired,
-  // deleteContainer
 };
 
 export default Container
