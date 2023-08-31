@@ -1,7 +1,9 @@
 import React from 'react'
 import Loading from './Loading';
 import Bio from './Bio';
+import Education from './Education';
 import { bioId } from './Bio';
+import { eduId } from './Education';
 
 class Bootstrapper extends React.Component {
 
@@ -106,6 +108,8 @@ class Bootstrapper extends React.Component {
     }
 
     const bioContainers = containers.filter((container) => container.topic === bioId);
+    const eduContainers = containers.filter((container) => container.topic === eduId);
+
     let isLoaded = true;
     Object.keys(loaded).forEach(key => {
       isLoaded = isLoaded && loaded[key];
@@ -121,6 +125,8 @@ class Bootstrapper extends React.Component {
         }
         <div className={isLoaded ? 'loaded' : 'loading'}>
           <Bio key={`bio-loaded-${bioContainers.length}`} containerFunctions={containerFunctions} containers={bioContainers} />
+          <Education key={`edu-loaded-${eduContainers.length}`} containerFunctions={containerFunctions} containers={eduContainers} />
+          
         </div>
       </>
     );

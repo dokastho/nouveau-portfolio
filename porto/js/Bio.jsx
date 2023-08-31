@@ -39,14 +39,17 @@ class Bio extends React.Component {
 
     return (
       <>
-        {
-          containers.map((container) => {
-            return (
-              <Container key={`${componentId}-container-${container.id}`} deleteContainer={deleteContainer} container={container} />
-            )
-          })
-        }
-        <NewContainer key={`${componentId}-container-new`} createContainer={createContainer} topic={componentId} />
+        <div className='bio-wrapper'>
+          <h1>Bio</h1>
+          {
+            containers.map((container) => {
+              return (
+                <Container key={`${componentId}-container-${container.id}`} deleteContainer={deleteContainer} container={container} />
+              )
+            })
+          }
+          <NewContainer key={`${componentId}-container-new`} createContainer={createContainer} topic={componentId} />
+        </div>
       </>
     );
   }
