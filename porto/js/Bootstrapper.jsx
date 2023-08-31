@@ -60,10 +60,12 @@ class Bootstrapper extends React.Component {
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
-        this.setState((prevState) => ({
-          containers: prevState.containers.push(container)
-        }));
         return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          containers: data,
+        });
       })
       .catch((error) => console.log(error));
   }
@@ -97,6 +99,12 @@ class Bootstrapper extends React.Component {
       loaded,
       containers,
     } = this.state;
+
+    const containerFunctions = {
+      createContainer: this.createContainer,
+      deleteContainer: this.deleteContainer,
+    }
+
     const bioContainers = containers.filter((container) => container.topic === bioId);
     let isLoaded = true;
     Object.keys(loaded).forEach(key => {
@@ -112,7 +120,7 @@ class Bootstrapper extends React.Component {
           )
         }
         <div className={isLoaded ? 'loaded' : 'loading'}>
-          <Bio key={`bio-loaded-${isLoaded}`} containers={bioContainers} />
+          <Bio key={`bio-loaded-${bioContainers.length}`} containerFunctions={containerFunctions} containers={bioContainers} />
         </div>
       </>
     );

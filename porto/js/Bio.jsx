@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 import Container from './Container';
+import NewContainer from './NewContainer';
 
 const componentId = "Bio";
 
@@ -27,15 +28,25 @@ class Bio extends React.Component {
     const {
       containers
     } = this.state;
+    const {
+      containerFunctions
+    } = this.props;
+
+    const {
+      createContainer,
+      deleteContainer,
+    } = containerFunctions;
+
     return (
       <>
         {
           containers.map((container) => {
             return (
-              <Container key={`bio-container-${container.id}`} container={container} />
+              <Container key={`${componentId}-container-${container.id}`} container={container} />
             )
           })
         }
+        <NewContainer key={`${componentId}-container-new`} callback={createContainer} topic={componentId} />
       </>
     );
   }
@@ -44,6 +55,7 @@ class Bio extends React.Component {
 Bio.propTypes = {
   // prop types go here
   containers: PropTypes.instanceOf(Object).isRequired,
+  containerFunctions: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Bio;

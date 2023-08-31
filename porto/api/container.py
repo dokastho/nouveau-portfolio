@@ -6,7 +6,6 @@ import flask
 from porto.api.model import get_db, check_session
 
 
-@porto.app.route("/api/v1/containers/")
 def get_all_containers():
     connection = get_db()
     cur = connection.execute("SELECT * FROM containers", ())
@@ -28,6 +27,12 @@ def get_all_containers():
             pass
         pass
 
+    return containers
+
+
+@porto.app.route("/api/v1/containers/")
+def fetch_containers():
+    containers = get_all_containers()
     return flask.jsonify(containers), 201
 
 
@@ -145,4 +150,4 @@ def create_container():
     )
     cur.fetchone()
 
-    return flask.Response(status=204)
+    return flask.jsonify(get_all_containers()), 201

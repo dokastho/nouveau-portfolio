@@ -28,3 +28,9 @@ body {
     margin-right: auto;
     max-width: 8rem;
 }
+
+/* containers */
+
+.create-container {
+    cursor: pointer;
+}
