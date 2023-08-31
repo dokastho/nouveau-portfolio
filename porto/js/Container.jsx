@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 import TagBank from './TagBank';
+import ConfirmatoryButton from './Buttons';
 
 class Container extends React.Component {
 
@@ -55,14 +56,19 @@ class Container extends React.Component {
   render() {
     const {
       name,
-      content
+      content,
+      id
     } = this.state;
+    const {
+      deleteContainer
+    } = this.props;
     return (
       <>
         <div className='container'>
           <h1 className='container-name'>{name}</h1>
           <div className='container-content'>{content}</div>
           <TagBank />
+          <ConfirmatoryButton text={'Delete Container'} callback={deleteContainer} args={{id}} />
         </div>
       </>
     );
@@ -73,6 +79,7 @@ Container.propTypes = {
   // prop types go here
   container: PropTypes.instanceOf(Object).isRequired,
   // tags: PropTypes.instanceOf(Array).isRequired,
+  // deleteContainer
 };
 
 export default Container

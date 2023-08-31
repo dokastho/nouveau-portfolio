@@ -34,3 +34,11 @@ body {
 .create-container {
     cursor: pointer;
 }
+
+/* inputs */
+
+button.clicked {
+    background-color: darkred;
+    color: white;
+    border: 0.2em solid darkred;
+}

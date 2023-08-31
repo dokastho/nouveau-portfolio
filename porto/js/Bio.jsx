@@ -42,11 +42,11 @@ class Bio extends React.Component {
         {
           containers.map((container) => {
             return (
-              <Container key={`${componentId}-container-${container.id}`} container={container} />
+              <Container key={`${componentId}-container-${container.id}`} deleteContainer={deleteContainer} container={container} />
             )
           })
         }
-        <NewContainer key={`${componentId}-container-new`} callback={createContainer} topic={componentId} />
+        <NewContainer key={`${componentId}-container-new`} createContainer={createContainer} topic={componentId} />
       </>
     );
   }

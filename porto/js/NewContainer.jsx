@@ -43,12 +43,12 @@ class NewContainer extends React.Component {
 
   handleSubmit() {
     const {
-      callback
+      createContainer
     } = this.props;
     const {
       containerContent
     } = this.state;
-    callback(containerContent);
+    createContainer(containerContent);
     this.setState({
       containerContent: {
         name: '',
@@ -113,7 +113,7 @@ class NewContainer extends React.Component {
 NewContainer.propTypes = {
   // prop types go here
   topic: PropTypes.string.isRequired,
-  // callback
+  // createContainer
 };
 
 export default NewContainer
