@@ -87,6 +87,7 @@ class EditContainer extends React.Component {
         <br />
         <br />
         <div className='save-state'>{saveState}</div>
+        {/* EditTagBank render here */}
       </>
     );
   }
@@ -100,3 +101,5 @@ EditContainer.propTypes = {
 };
 
 export default EditContainer
+
+// could have delete function here and then remove the inefficient whole-state fetch from API
