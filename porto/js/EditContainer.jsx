@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import ConfirmatoryButton from './Buttons';
 import EditTagBank from './EditTagBank';
+import { EditorProvider } from '@tiptap/react';
 
 const SAVED = "Saved.";
 const SAVING = "Saving...";
@@ -85,7 +86,9 @@ class EditContainer extends React.Component {
         <input type='text' value={name} required onChange={(e) => { this.handleChange('name', e.target.value) }} />
         <br />
         <label>Content</label>
-        <div>placeholder</div>
+        <EditorProvider
+          content={content}
+        />
         <br />
         <ConfirmatoryButton
           text={'Delete Container'}

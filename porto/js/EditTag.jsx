@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import Tag from './Tag';
 import ConfirmatoryButton from './Buttons';
+import { ADMIN } from './Bootstrapper';
 
 const SAVED = "Saved.";
 const SAVING = "Saving...";
@@ -135,11 +136,11 @@ class EditTag extends React.Component {
                 <br />
                 <br />
                 <div className='save-state'>{saveState}</div>
-                <div className='pointer' onClick={() => { this.toggleSelect() }}>Done</div>
+                <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
               </div>
             </>
           ) : (
-            <div className='pointer' onClick={() => { this.toggleSelect() }}>
+            <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>
               <Tag key={`${containerId}-tag-${tag.id}`} tag={tag} />
             </div>
           )

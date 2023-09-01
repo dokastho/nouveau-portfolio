@@ -3,6 +3,7 @@ import React from 'react'
 import EditTag from './EditTag';
 import NewTag from './NewTag';
 import Tag from './Tag';
+import { ADMIN } from './Bootstrapper';
 
 class EditTagBank extends React.Component {
 
@@ -175,7 +176,7 @@ class EditTagBank extends React.Component {
           {
             availableTags.map((tag) => {
               return (
-                <div key={`${containerId}-available-tag-${tag.id}`} className='pointer' onClick={() => { this.addTag(tag) }}>
+                <div key={`${containerId}-available-tag-${tag.id}`} className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.addTag(tag) }}>
                   <Tag tag={tag} />
                 </div>
               )

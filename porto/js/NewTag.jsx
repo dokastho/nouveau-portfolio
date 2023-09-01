@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react'
+import { ADMIN } from './Bootstrapper';
 
 class NewTag extends React.Component {
 
@@ -26,7 +27,7 @@ class NewTag extends React.Component {
     } = this.props;
     return (
       <>
-        <div className='create-tag pointer' onClick={() => { createTag({name, colorHex }) }}>Create a new tag</div>
+        <div className={`create-tag ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { createTag({name, colorHex }) }}>Create a new tag</div>
       </>
     );
   }
