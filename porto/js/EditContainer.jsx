@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 import ConfirmatoryButton from './Buttons';
+import EditTagBank from './EditTagBank';
 
 const SAVED = "Saved.";
 const SAVING = "Saving...";
@@ -14,6 +15,7 @@ class EditContainer extends React.Component {
       containerContent: {
         name: '',
         content: '',
+        tags: [],
         id: 0,
       },
       saveState: SAVED,
@@ -71,6 +73,7 @@ class EditContainer extends React.Component {
       name,
       content,
       id,
+      tags,
     } = containerContent;
     const {
       deleteContainer
@@ -87,7 +90,7 @@ class EditContainer extends React.Component {
         <br />
         <br />
         <div className='save-state'>{saveState}</div>
-        {/* EditTagBank render here */}
+        <EditTagBank key={`${id}-edit-tag-bank-${tags.length}`} containerId={id} tags={tags} />
       </>
     );
   }

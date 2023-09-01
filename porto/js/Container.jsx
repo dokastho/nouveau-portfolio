@@ -90,7 +90,7 @@ class Container extends React.Component {
           selected ? (
             <>
               <EditContainer
-                containerContent={{ name, content, id }}
+                containerContent={ container }
                 updateContainer={this.updateContainer}
                 deleteContainer={deleteContainer}
               />

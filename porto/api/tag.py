@@ -1,9 +1,26 @@
 """Handle tag requests."""
 
 import random
+import arrow
 import porto
 import flask
 from porto.api.model import get_db, check_session
+
+
+def get_tags_for_container(c_id):
+    connection = get_db()
+    cur = connection.execute(
+        "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
+    )
+    ids = cur.fetchall()
+    tags = []
+    for t_id in ids:
+        cur = connection.execute(
+            "SELECT * FROM tags WHERE id = ?", (t_id,)
+        )
+        tags.append(cur.fetchone())
+        pass
+    return tags
 
 
 @porto.app.route("/api/v1/tags/update/", methods=["POST"])
@@ -40,8 +57,14 @@ def update_tag():
         ),
     )
     cur.fetchone()
+    
+    cur = connection.execute(
+        "SELECT * FROM tags WHERE id = ?", (tag_id,)
+    )
+    
+    tag = cur.fetchone()
 
-    return flask.Response(status=204)
+    return flask.jsonify(tag), 201
 
 
 @porto.app.route("/api/v1/tags/delete/", methods=["POST"])
@@ -160,9 +183,15 @@ def create_tag():
             )
         )
         cur.fetchall()
-        pass
+        return flask.jsonify(get_tags_for_container(c_id)), 201
 
-    return flask.Response(status=204)
+    else:
+        cur = connection.execute(
+            "SELECT * FROM tags", ()
+        )
+        tags = cur.fetchall()
+
+        return flask.jsonify(tags), 201
 
 
 @porto.app.route("/api/v1/tags/add/", methods=["POST"])
@@ -198,4 +227,4 @@ def add_tag():
     )
     cur.fetchone()
 
-    return flask.Response(status=204)
+    return flask.jsonify(get_tags_for_container(c_id)), 201

@@ -4,6 +4,7 @@ import arrow
 import porto
 import flask
 from porto.api.model import get_db, check_session
+from porto.api.tag import get_tags_for_container
 
 
 def get_all_containers():
@@ -13,43 +14,20 @@ def get_all_containers():
     containers = cur.fetchall()
 
     for container in containers:
-        c_id = container["id"]
         container["ts"] = arrow.get(container["created"]).humanize()
-        cur = connection.execute(
-            "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
-        )
-        tags = cur.fetchall()
-
-        container["tags"] = []
-        for tag in tags:
-            t_id = tag["tId"]
-            cur = connection.execute("SELECT * FROM tags WHERE id = ?", (t_id,))
-            container["tags"].append(cur.fetchone())
-            pass
-        pass
+        c_id = container["id"]
+        container["tags"] = get_tags_for_container(c_id)
 
     return containers
 
 
-def get_one_container(container_id):
+def get_one_container(c_id):
     connection = get_db()
-    cur = connection.execute("SELECT * FROM containers WHERE id = ?", (container_id,))
-
+    cur = connection.execute("SELECT * FROM containers WHERE id = ?", (c_id,))
     container = cur.fetchone()
 
     container["ts"] = arrow.get(container["created"]).humanize()
-    cur = connection.execute(
-        "SELECT * FROM tags_to_containers WHERE cId = ?", (container_id,)
-    )
-    tags = cur.fetchall()
-
-    container["tags"] = []
-    for tag in tags:
-        t_id = tag["tId"]
-        cur = connection.execute("SELECT * FROM tags WHERE id = ?", (t_id,))
-        container["tags"].append(cur.fetchone())
-        pass
-    pass
+    container["tags"] = get_tags_for_container(c_id)
 
     return container
 
