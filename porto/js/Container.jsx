@@ -21,6 +21,7 @@ class Container extends React.Component {
     };
     this.updateContainer = this.updateContainer.bind(this);
     this.toggleSelect = this.toggleSelect.bind(this);
+    this.setTags = this.setTags.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +39,14 @@ class Container extends React.Component {
       selected
     } = this.state;
     this.setState({ selected: !selected });
+  }
+
+  setTags(tags) {
+    const {
+      container
+    } = this.state;
+    container.tags = tags;
+    this.setState({ container });
   }
 
   updateContainer(container) {
@@ -90,9 +99,10 @@ class Container extends React.Component {
           selected ? (
             <>
               <EditContainer
-                containerContent={ container }
+                containerContent={container}
                 updateContainer={this.updateContainer}
                 deleteContainer={deleteContainer}
+                setTags={this.setTags}
               />
               <div className='pointer' onClick={() => { this.toggleSelect() }}>Done</div>
             </>
@@ -101,9 +111,10 @@ class Container extends React.Component {
               <h1 className='container-name'>{name}</h1>
               <div className='container-content'>{content}</div>
               <TagBank
-               tags={tags}
-               containerId={id}
-               />
+                key={`${id}-tag-bank-${tags.length}`}
+                tags={tags}
+                containerId={id}
+              />
             </div>
           )
         }

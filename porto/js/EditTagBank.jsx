@@ -12,6 +12,7 @@ class EditTagBank extends React.Component {
     }
     this.createTag = this.createTag.bind(this);
     this.deleteTag = this.deleteTag.bind(this);
+    this.setTag = this.setTag.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +24,8 @@ class EditTagBank extends React.Component {
 
   createTag(tag) {
     const {
-      containerId
+      containerId,
+      setTags
     } = this.props;
     const {
       name,
@@ -44,9 +46,7 @@ class EditTagBank extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          tags: data,
-        });
+        setTags(data);
       })
       .catch((error) => console.log(error));
   }
@@ -55,6 +55,9 @@ class EditTagBank extends React.Component {
     const {
       id
     } = tag;
+    const {
+      setTags
+    } = this.props;
     fetch(`/api/v1/tags/delete/`,
       {
         credentials: 'same-origin',
@@ -67,12 +70,25 @@ class EditTagBank extends React.Component {
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
-        this.setState((prevState) => ({
-          tags: prevState.tags.filter((t) => t.id !== id)
-        }));
+        const {
+          tags
+        } = this.state;
+        const newTags = tags.filter((t) => t.id !== id);
+        setTags(newTags);
         return response.json();
       })
       .catch((error) => console.log(error));
+  }
+
+  setTag(tag, index) {
+    const {
+      tags
+    } = this.state;
+    const {
+      setTags
+    } = this.props;
+    tags[index] = tag;
+    setTags(tags);
   }
 
   render() {
@@ -86,11 +102,13 @@ class EditTagBank extends React.Component {
       <>
         <div className='tag-bank'>
           {
-            tags.map((tag) => {
+            tags.map((tag, index) => {
               return (
                 <EditTag
                   key={`${containerId}-tag-${tag.name}`}
                   tag={tag}
+                  index={index}
+                  setTag={this.setTag}
                   containerId={containerId}
                   deleteTag={this.deleteTag}
                 />
@@ -111,6 +129,3 @@ EditTagBank.propTypes = {
 };
 
 export default EditTagBank
-
-// render create button
-// need methods for create and delete

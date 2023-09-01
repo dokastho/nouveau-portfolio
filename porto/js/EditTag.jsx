@@ -91,6 +91,16 @@ class EditTag extends React.Component {
     const {
       selected
     } = this.state;
+    if (selected) {
+      const {
+        setTag,
+        index,
+      } = this.props;
+      const {
+        tag
+      } = this.state;
+      setTag(tag, index);
+    }
     this.setState({ selected: !selected });
   }
 
@@ -145,10 +155,8 @@ EditTag.propTypes = {
   // s: PropTypes.string.isRequired,
   tag: PropTypes.instanceOf(Object).isRequired,
   containerId: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  // setTag
 };
 
 export default EditTag
-
-// onclick will select and be able to be edited
-// need update method here
-// need delete button here

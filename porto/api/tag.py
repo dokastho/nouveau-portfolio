@@ -10,11 +10,12 @@ from porto.api.model import get_db, check_session
 def get_tags_for_container(c_id):
     connection = get_db()
     cur = connection.execute(
-        "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
+        "SELECT tId FROM tags_to_containers WHERE cId = ?", (c_id,)
     )
     ids = cur.fetchall()
     tags = []
-    for t_id in ids:
+    for o in ids:
+        t_id = o['tId']
         cur = connection.execute(
             "SELECT * FROM tags WHERE id = ?", (t_id,)
         )
@@ -148,9 +149,9 @@ def create_tag():
     name = body["name"]
     color_hex = body["colorHex"]
     if color_hex is None:
-        rint: int = random.randint() % 0xFFFFFF
-        brint: bytes = rint.to_bytes()
-        color_hex = brint.hex().upper()
+        rint: int = random.randint(0, 0xFFFFFF)
+        brint: bytes = rint.to_bytes(4, 'big')
+        color_hex = brint.hex().upper().lstrip('00')
         pass
 
     connection = get_db()

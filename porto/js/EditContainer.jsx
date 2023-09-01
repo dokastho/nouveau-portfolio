@@ -76,7 +76,8 @@ class EditContainer extends React.Component {
       tags,
     } = containerContent;
     const {
-      deleteContainer
+      deleteContainer,
+      setTags,
     } = this.props;
     return (
       <>
@@ -86,11 +87,20 @@ class EditContainer extends React.Component {
         <label>Content</label>
         <div>placeholder</div>
         <br />
-        <ConfirmatoryButton text={'Delete Container'} callback={deleteContainer} args={{ id }} />
+        <ConfirmatoryButton
+          text={'Delete Container'}
+          callback={deleteContainer}
+          args={{ id }}
+        />
         <br />
         <br />
         <div className='save-state'>{saveState}</div>
-        <EditTagBank key={`${id}-edit-tag-bank-${tags.length}`} containerId={id} tags={tags} />
+        <EditTagBank
+          key={`${id}-edit-tag-bank-${tags.length}`}
+          containerId={id}
+          tags={tags}
+          setTags={setTags}
+        />
       </>
     );
   }

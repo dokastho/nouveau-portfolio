@@ -22,11 +22,11 @@ class NewTag extends React.Component {
       colorHex
     } = this.state;
     const {
-      creatTag
+      createTag
     } = this.props;
     return (
       <>
-        <div className='create-tag pointer' onClick={() => { creatTag({name, colorHex }) }}>Create a new tag</div>
+        <div className='create-tag pointer' onClick={() => { createTag({name, colorHex }) }}>Create a new tag</div>
       </>
     );
   }
