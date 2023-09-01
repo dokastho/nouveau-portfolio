@@ -62,13 +62,15 @@ class EditTagBank extends React.Component {
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
-        return response.json();
-      })
-      .then((data) => {
+        const {
+          tags
+        } = this.state;
+        tags.push(tag);
         this.setState((prevState) => ({
-          tags: prevState.tags.push(tag),
+          tags,
           availableTags: prevState.availableTags.filter((t) => t.id !== tag.id),
         }));
+        return response.json();
       })
       .catch((error) => console.log(error));
   }
@@ -118,7 +120,7 @@ class EditTagBank extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({containerId, id}),
+        body: JSON.stringify({ containerId, id }),
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
