@@ -131,7 +131,7 @@ class EditTag extends React.Component {
                 <label>Color Hex Code</label>
                 <input type='text' value={colorHex} required onChange={(e) => { this.handleChange('colorHex', e.target.value) }} />
                 <br />
-                <ConfirmatoryButton text={'Delete Tag'} callback={deleteTag} args={{ id }} />
+                <ConfirmatoryButton text={'Delete Tag'} callback={deleteTag} args={{ id, containerId }} />
                 <br />
                 <br />
                 <div className='save-state'>{saveState}</div>

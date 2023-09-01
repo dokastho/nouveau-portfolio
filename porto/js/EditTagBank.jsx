@@ -2,24 +2,75 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import EditTag from './EditTag';
 import NewTag from './NewTag';
+import Tag from './Tag';
 
 class EditTagBank extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      tags: []
+      tags: [],
+      availableTags: [],
     }
     this.createTag = this.createTag.bind(this);
     this.deleteTag = this.deleteTag.bind(this);
+    this.addTag = this.addTag.bind(this);
     this.setTag = this.setTag.bind(this);
   }
 
   componentDidMount() {
     const {
-      tags
+      tags,
+      containerId,
     } = this.props;
-    this.setState({ tags });
+    fetch(`/api/v1/tags/distinct/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ containerId }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          tags,
+          availableTags: data,
+        });
+      })
+      .catch((error) => console.log(error));
+  }
+
+  addTag(tag) {
+    const {
+      containerId,
+    } = this.props;
+    fetch(`/api/v1/tags/add/`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ containerId, tagId: tag.id }),
+      })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        this.setState((prevState) => ({
+          tags: prevState.tags.push(tag),
+          availableTags: prevState.availableTags.filter((t) => t.id !== tag.id),
+        }));
+      })
+      .catch((error) => console.log(error));
   }
 
   createTag(tag) {
@@ -53,7 +104,8 @@ class EditTagBank extends React.Component {
 
   deleteTag(tag) {
     const {
-      id
+      id,
+      containerId
     } = tag;
     const {
       setTags
@@ -66,7 +118,7 @@ class EditTagBank extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({containerId, id}),
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -93,7 +145,8 @@ class EditTagBank extends React.Component {
 
   render() {
     const {
-      tags
+      tags,
+      availableTags,
     } = this.state;
     const {
       containerId,
@@ -112,6 +165,17 @@ class EditTagBank extends React.Component {
                   containerId={containerId}
                   deleteTag={this.deleteTag}
                 />
+              )
+            })
+          }
+          <div>Available Tags</div>
+          <hr />
+          {
+            availableTags.map((tag) => {
+              return (
+                <div key={`${containerId}-available-tag-${tag.id}`} className='pointer' onClick={() => { this.addTag(tag) }}>
+                  <Tag tag={tag} />
+                </div>
               )
             })
           }

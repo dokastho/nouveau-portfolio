@@ -193,6 +193,51 @@ def create_tag():
         tags = cur.fetchall()
 
         return flask.jsonify(tags), 201
+    
+    
+@porto.app.route("/api/v1/tags/distinct/", methods=['POST'])
+def get_tags_not_in_container():
+    logname = check_session()
+    if not logname:
+        flask.abort(403)
+        pass
+
+    body = flask.request.get_json()
+    if body is None:
+        flask.abort(400)
+        pass
+
+    keys = ["containerId"]
+    for key in keys:
+        if key not in body:
+            flask.abort(400)
+            pass
+        pass
+    
+    c_id = body["containerId"]
+    
+    connection = get_db()
+    cur = connection.execute(
+        "SELECT * FROM tags_to_containers WHERE cId = ?", (c_id,)
+    )
+    
+    data = cur.fetchall()
+    ids = [x['tId'] for x in data]
+    
+    cur = connection.execute(
+        "SELECT * FROM tags", ()
+    )
+    
+    data = cur.fetchall()
+    
+    tags = []
+    for tag in data:
+        if tag["id"] not in ids:
+            tags.append(tag)
+            pass
+        pass
+    
+    return flask.jsonify(tags), 201
 
 
 @porto.app.route("/api/v1/tags/add/", methods=["POST"])
@@ -214,8 +259,8 @@ def add_tag():
             pass
         pass
 
-    t_id = body["t_id"]
-    c_id = body["c_id"]
+    t_id = body["tagId"]
+    c_id = body["containerId"]
 
     connection = get_db()
     cur = connection.execute(
@@ -228,4 +273,4 @@ def add_tag():
     )
     cur.fetchone()
 
-    return flask.jsonify(get_tags_for_container(c_id)), 201
+    return flask.Response(status=204)
