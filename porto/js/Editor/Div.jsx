@@ -10,8 +10,17 @@ const Div = Node.create({
   addOptions: {
     HTMLAttributes: {
       class: "placeholder",
-      style: "color:red;",
+      style: "",
     },
+  },
+
+  addAttributes() {
+    return {
+      style: {
+        // Set the color attribute according to the value of the `data-color` attribute
+        parseHTML: element => element.getAttribute('style'),
+      }
+    }
   },
 
   content: 'block+',

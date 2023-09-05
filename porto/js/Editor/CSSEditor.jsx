@@ -13,7 +13,9 @@ const CSSEditor = () => {
     <>
       <input
         type='textarea'
-        onChange={(e) => { editor.chain().focus().setStyles(e.target.value).run() }}
+        onKeyDown={(e) => { if (e.key === "Enter") {
+          editor.chain().focus().selectParentNode().updateAttributes('div', { style: e.target.value }).run();
+        }}}
         className={editor.isActive('css-editor') ? 'is-active' : ''}
       />
     </>
