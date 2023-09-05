@@ -41,7 +41,7 @@ const Div = Node.create({
       },
       unsetDiv: () => ({ commands }) => {
         return commands.lift(this.name)
-      },
+      }
     }
   },
 });

@@ -1,3 +1,3 @@
-import MyEditor from "./Editor";
+import MyEditor from "./MyEditor";
 
 export default MyEditor
