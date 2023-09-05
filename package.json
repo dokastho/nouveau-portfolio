@@ -27,6 +27,7 @@
     "dependencies": {
         "@tiptap/extension-color": "^2.1.7",
         "@tiptap/extension-text-style": "^2.1.7",
+        "@tiptap/extension-typography": "^2.1.8",
         "@tiptap/react": "^2.1.7",
         "@tiptap/starter-kit": "^2.1.7",
         "chromedriver": "^98.0.0",

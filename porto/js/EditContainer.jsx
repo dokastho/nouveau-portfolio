@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import ConfirmatoryButton from './Buttons';
 import EditTagBank from './EditTagBank';
-import MyEditor from './Tiptap';
+import MyEditor from './Editor';
 
 const SAVED = "Saved.";
 const SAVING = "Saving...";

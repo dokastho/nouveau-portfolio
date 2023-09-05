@@ -3,9 +3,48 @@ import './editor-styles.scss'
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
-import { EditorProvider, useCurrentEditor } from '@tiptap/react'
+// import Typography from '@tiptap/extension-typography'
+import { Node } from '@tiptap/core'
+import { EditorProvider, useCurrentEditor, mergeAttributes } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React from 'react'
+
+const Div = Node.create({
+  name: 'div',
+
+  priority: 1000,
+
+  addOptions: {
+    HTMLAttributes: {},
+  },
+
+  content: 'block+',
+
+  group: 'block',
+
+  defining: true,
+
+  parseHTML() {
+    return [
+      { tag: 'div' },
+    ]
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
+  },
+
+  addCommands() {
+    return {
+      setDiv: () => ({ commands }) => {
+        return commands.wrapIn(this.name)
+      },
+      unsetDiv: () => ({ commands }) => {
+        return commands.lift(this.name)
+      },
+    }
+  },
+});
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
@@ -79,6 +118,12 @@ const MenuBar = () => {
         className={editor.isActive('paragraph') ? 'is-active' : ''}
       >
         paragraph
+      </button>
+      <button
+        onClick={() => editor.chain().focus().setDiv().run()}
+        className={editor.isActive('div') ? 'is-active' : ''}
+      >
+        div
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -180,19 +225,55 @@ const MenuBar = () => {
   )
 }
 
+const RawHTML = () => {
+  const { editor } = useCurrentEditor()
+
+  if (!editor) {
+    return null
+  }
+  return (
+    <>
+      <div className='raw-html'>
+        {editor.getHTML()}
+      </div>
+    </>
+  )
+}
+
+const CSSEditor = () => {
+  const { editor } = useCurrentEditor();
+
+  editor.getText
+
+  if (!editor) {
+    return null
+  }
+  return (
+    <>
+      <input
+        type='textarea'
+        onChange={() => { editor.chain().focus().updateAttributes() }}
+        className={editor.isActive('css-editor') ? 'is-active' : ''}
+      />
+    </>
+  )
+}
+
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] }),
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+      keepAttributes: false,
     },
     orderedList: {
       keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+      keepAttributes: false,
     },
   }),
+  // Typography,
+  Div,
 ]
 
 const content = `
@@ -232,7 +313,7 @@ export default class MyEditor extends React.Component {
   }
   render() {
     return (
-      <EditorProvider slotBefore={<MenuBar />} extensions={extensions} content={content}></EditorProvider>
+      <EditorProvider slotBefore={<MenuBar />} slotAfter={<RawHTML />} extensions={extensions} content={content}></EditorProvider>
     )
   }
 }
