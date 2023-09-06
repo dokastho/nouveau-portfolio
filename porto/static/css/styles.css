@@ -57,7 +57,3 @@ button.clicked {
     color: white;
     border: 0.2em solid darkred;
 }
-
-.has-focus {
-    background-color: aliceblue;
-}

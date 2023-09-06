@@ -33,7 +33,7 @@ const extensions = [
   }),
   Focus.configure({
     className: 'has-focus',
-    mode: 'all',
+    mode: 'shallowest',
   }),
   Typography,
   Div,
@@ -88,8 +88,7 @@ class MyEditor extends React.Component {
           slotBefore={
             <>
               <MenuBar />
-              <input 
-                type='textarea'
+              <textarea
                 value={css}
                 onChange={(e) => {this.handleCSSChange(e.target.value)}}
               />
