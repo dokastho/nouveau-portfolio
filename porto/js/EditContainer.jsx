@@ -83,8 +83,6 @@ class EditContainer extends React.Component {
 
     return (
       <>
-        <label>Name</label>
-        <input type='text' value={name} required onChange={(e) => { this.handleChange('name', e.target.value) }} />
         <br />
         <MyEditor 
           content={content}

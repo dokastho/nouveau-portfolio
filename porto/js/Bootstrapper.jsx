@@ -135,11 +135,11 @@ class Bootstrapper extends React.Component {
               containerFunctions={containerFunctions}
               containers={bioContainers}
             />
-            {/* <Education
+            <Education
             key={`edu-loaded-${eduContainers.length}`}
             containerFunctions={containerFunctions}
             containers={eduContainers}
-          /> */}
+          />
 
           </div>
         </div>

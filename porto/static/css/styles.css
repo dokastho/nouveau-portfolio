@@ -46,6 +46,11 @@ body {
     cursor: pointer;
 }
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .raise {
     transition: all 0.2s ease-in-out;
 }
@@ -64,7 +69,8 @@ body {
 }
 
 .navbar {
-    padding: 3rem;
+    padding: 0.1rem;
+    margin-top: 3rem;
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
@@ -85,7 +91,18 @@ body {
     background-color: lightgray;
 }
 
+.buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    width: fit-content;
+}
+
 /* containers */
+
+.tiptap {
+    outline: none;
+}
 
 .css-editor, .raw-html {
     font-family: 'Courier New', Courier, monospace;
@@ -95,6 +112,8 @@ body {
     border-radius: 5px;
     height: 300px;
     outline: none;
+    color: black;
+    background-color: white;
 }
 
 .extra-container-info {
@@ -118,7 +137,7 @@ body {
 
 .container-colored-stripe {
     width: 0.5rem;
-    background-color: green;
+    /* background-color: green; */
 }
 
 /* tags */
@@ -128,6 +147,12 @@ body {
     justify-content: flex-start;
 }
 
+.edit-tag {
+    padding: 1rem;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+}
+
 .tag, .create-tag {
     border-radius: 0.25rem;
     padding: 0.5rem;
@@ -135,32 +160,11 @@ body {
     width: fit-content;
 }
 
-/* inputs */
-
-button,
-input[type=button],
-.create-tag {
-    cursor: pointer;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    width: fit-content;
-    border: 2px solid black;
-}
-
-button:hover,
-input[type=button]:hover,
 .create-tag:hover {
     background-color: lightgray;
 }
 
-button:active,
-input[type=button]:active,
 .create-tag:active {
     background-color: gray;
 }
 
-button.clicked {
-    background-color: darkred;
-    color: white;
-    border: 0.2em solid darkred;
-}

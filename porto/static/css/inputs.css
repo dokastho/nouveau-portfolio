@@ -1,0 +1,124 @@
+/* inputs */
+
+input[type=text],
+textarea,
+input[type=password] {
+    appearance: none;
+    border: none;
+    outline: none;
+    border-bottom: 0.2em solid gray;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.2em 0.2em 0 0;
+    padding: 0.4em;
+    color: black;
+}
+
+
+input[type=submit],
+.submit-button {
+    border-radius: 0.25rem;
+    padding: 0.85em 1.5em;
+    color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    transition: 0.1s all ease;
+    border: 0px;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+}
+
+input[type=submit]:hover,
+.submit-button:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+label[for=file] {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 0.5em;
+    justify-items: center;
+    align-content: center;
+    color: black;
+    border: 0.2em solid gray;
+    background: rgba(0, 0, 0, 0);
+    padding: 0.85em 1.5em;
+    color: black;
+    border-radius: 0.5rem;
+    transition: 0.1s;
+    width: fit-content;
+    cursor: pointer;
+}
+
+label[for=file]:hover,
+label[for=file]:focus,
+label[for=file]:active {
+    background: gray;
+    color: #fff;
+}
+
+input[type=file] {
+    display: none;
+}
+
+input[type=date] {
+    cursor: pointer;
+    outline: none;
+    border: 0.2em solid gray;
+    padding: 0.8em 0.9em;
+    border-radius: 0.5rem;
+    color: black;
+}
+
+input[type=button],
+button,
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0.1em solid gray;
+    background: rgba(0, 0, 0, 0);
+    padding: 0.85em 1.5em;
+    color: black;
+    border-radius: 0.5rem;
+    transition: 0.1s;
+    font-weight: bold;
+    cursor: pointer;
+    width: fit-content;
+}
+
+input[type=button]:hover,
+input[type=button]:focus,
+button:hover,
+.button:hover {
+    background: gray;
+    color: #fff;
+}
+
+input[type=button]:active,
+button:active,
+.button:active {
+    background: gray;
+}
+
+input[type=number] {
+    width: 3em;
+    padding: 0.5em;
+    border: 0.2em solid gray;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: black;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    margin: 0;
+    background: rgba(26, 115, 232, 0.2);
+    outline: none;
+}
+
+button.clicked {
+    background-color: darkred;
+    color: white;
+    border: 0.1em solid darkred;
+}

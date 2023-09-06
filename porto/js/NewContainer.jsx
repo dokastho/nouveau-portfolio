@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react'
-import { ADMIN } from './Bootstrapper';
 
 class NewContainer extends React.Component {
 
@@ -29,7 +28,7 @@ class NewContainer extends React.Component {
     } = this.props;
     return (
       <>
-        <div className={`create-container ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { createContainer({name, content, topic}) }}>Create a new container</div>
+        <div className='button center' onClick={() => { createContainer({ name, content, topic }) }}>Create a new {topic} container</div>
       </>
     );
   }

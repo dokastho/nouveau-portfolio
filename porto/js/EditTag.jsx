@@ -125,18 +125,20 @@ class EditTag extends React.Component {
         {
           selected ? (
             <>
-              <div className='tag'>
+              <div className='edit-tag'>
                 <label>Name</label>
                 <input type='text' value={name} required onChange={(e) => { this.handleChange('name', e.target.value) }} />
                 <br />
                 <label>Color Hex Code</label>
                 <input type='text' value={colorHex} required onChange={(e) => { this.handleChange('colorHex', e.target.value) }} />
                 <br />
-                <ConfirmatoryButton text={'Delete Tag'} callback={deleteTag} args={{ id, containerId }} />
-                <br />
+                <div className='buttons'>
+                  <ConfirmatoryButton text={'Delete Tag'} callback={deleteTag} args={{ id, containerId }} />
+                  <br />
+                  <div className={`button ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
+                </div>
                 <br />
                 <div className='save-state'>{saveState}</div>
-                <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
               </div>
             </>
           ) : (

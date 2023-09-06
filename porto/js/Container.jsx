@@ -108,8 +108,9 @@ class Container extends React.Component {
                     deleteContainer={deleteContainer}
                     setTags={this.setTags}
                   />
-                  <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
                   <div>Updated {ts}</div>
+                  <br />
+                  <div className={`button ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
                 </div>
               </div>
             </>
