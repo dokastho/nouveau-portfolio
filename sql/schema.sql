@@ -12,7 +12,8 @@ CREATE TABLE containers(
   name VARCHAR(64),
   owner VARCHAR(20) NOT NULL,
   topic VARCHAR(20) NOT NULL,
-  content TEXT,
+  content TEXT NOT NULL,
+  css TEXT NOT NULL,
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(owner) REFERENCES users(username) ON DELETE CASCADE
 );

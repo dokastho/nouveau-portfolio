@@ -50,7 +50,7 @@ def update_container():
         flask.abort(400)
         pass
 
-    keys = ["name", "content", "id"]
+    keys = ["name", "content", "css", "id"]
     for key in keys:
         if key not in body:
             flask.abort(400)
@@ -60,16 +60,18 @@ def update_container():
     name = body["name"]
     container_id = body["id"]
     content = body["content"]
+    css = body["css"]
     ts = arrow.utcnow().format()
 
     connection = get_db()
     cur = connection.execute(
         "UPDATE containers "
-        "SET name = ?, content = ?, created = ? "
+        "SET name = ?, content = ?, css = ?, created = ? "
         "WHERE id = ? AND owner = ?",
         (
             name,
             content,
+            css,
             ts,
             container_id,
             logname,
@@ -126,7 +128,7 @@ def create_container():
         flask.abort(400)
         pass
 
-    keys = ["name", "content", "topic"]
+    keys = ["name", "content", "css", "topic"]
     for key in keys:
         if key not in body:
             flask.abort(400)
@@ -135,15 +137,17 @@ def create_container():
 
     name = body["name"]
     content = body["content"]
+    css = body["css"]
     topic = body["topic"]
 
     connection = get_db()
     cur = connection.execute(
-        "INSERT INTO containers (owner, name, content, topic) VALUES (?, ?, ?, ?)",
+        "INSERT INTO containers (owner, name, content, css, topic) VALUES (?, ?, ?, ?, ?)",
         (
             logname,
             name,
             content,
+            css,
             topic,
         ),
     )

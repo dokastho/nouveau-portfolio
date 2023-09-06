@@ -16,6 +16,7 @@ class EditContainer extends React.Component {
       containerContent: {
         name: '',
         content: '',
+        css: '',
         tags: [],
         id: 0,
       },
@@ -73,6 +74,7 @@ class EditContainer extends React.Component {
     const {
       name,
       content,
+      css,
       id,
       tags,
     } = containerContent;
@@ -86,11 +88,12 @@ class EditContainer extends React.Component {
         <label>Name</label>
         <input type='text' value={name} required onChange={(e) => { this.handleChange('name', e.target.value) }} />
         <br />
-        <label>Content</label>
-        <br />
-        <MyEditor />
-        <br />
-        <label>Content</label>
+        <MyEditor 
+          content={content}
+          css={css}
+          handleChange={this.handleChange}
+          key={id}
+        />
         <br />
         <ConfirmatoryButton
           text={'Delete Container'}

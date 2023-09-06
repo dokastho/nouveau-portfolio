@@ -50,7 +50,8 @@ class Bootstrapper extends React.Component {
     const {
       name,
       content,
-      topic
+      css,
+      topic,
     } = container;
     fetch(`/api/v1/containers/new/`,
       {
@@ -60,7 +61,7 @@ class Bootstrapper extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, content, topic }),
+        body: JSON.stringify({ name, content, css, topic }),
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);

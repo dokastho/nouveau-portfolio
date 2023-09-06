@@ -3,6 +3,7 @@ import React from 'react'
 import TagBank from './TagBank';
 import { ADMIN } from './Bootstrapper';
 import EditContainer from './EditContainer';
+import HTMLWrapper from './HTMLWrapper'
 
 class Container extends React.Component {
 
@@ -53,7 +54,8 @@ class Container extends React.Component {
     const {
       name,
       content,
-      id
+      css,
+      id,
     } = container;
     fetch(`/api/v1/containers/update/`,
       {
@@ -63,7 +65,7 @@ class Container extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, content, id }),
+        body: JSON.stringify({ name, content, css, id }),
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -103,13 +105,16 @@ class Container extends React.Component {
                 updateContainer={this.updateContainer}
                 deleteContainer={deleteContainer}
                 setTags={this.setTags}
+                // key={`edit-${created}`}
               />
               <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
             </>
           ) : (
-            <div key={created} className={`container ${ADMIN ? 'pointer' : 'normal'}`} onClick={ADMIN ? () => { this.toggleSelect() } : null}>
+            <div key={`view-${created}`} className={`container ${ADMIN ? 'pointer' : 'normal'}`} onClick={ADMIN ? () => { this.toggleSelect() } : null}>
               <h1 className='container-name'>{name}</h1>
-              <div className='container-content'>{content}</div>
+              <div className='container-content'>
+                <HTMLWrapper content={content} />
+              </div>
               <TagBank
                 key={`${id}-tag-bank-${tags.length}`}
                 tags={tags}
