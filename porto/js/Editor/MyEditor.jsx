@@ -3,14 +3,15 @@ import './editor-styles.scss'
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
-// import Typography from '@tiptap/extension-typography'
+import Typography from '@tiptap/extension-typography'
+import Focus from '@tiptap/extension-focus'
 import { EditorProvider } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
 import MenuBar from './MenuBar'
 import Div from './Div'
 import RawHTML from './RawHTML'
-import CSSEditor from './CSSEditor'
+import CSSEditorButton from './CSSEditor'
 
 import PropTypes from 'prop-types';
 import React from 'react'
@@ -30,7 +31,11 @@ const extensions = [
       keepAttributes: false,
     },
   }),
-  // Typography,
+  Focus.configure({
+    className: 'has-focus',
+    mode: 'all',
+  }),
+  Typography,
   Div,
 ]
 
@@ -43,28 +48,29 @@ class MyEditor extends React.Component {
       mounted: false,
     };
     this.handleCSSChange = this.handleCSSChange.bind(this);
+    this.getCSS = this.getCSS.bind(this);
   }
 
   componentDidMount() {
     const {
       content,
-      css,
     } = this.props;
     const mounted = true;
     this.setState({
       content,
-      css,
       mounted,
     });
   }
 
   handleCSSChange(css) {
     this.setState({ css });
+  }
 
-    const {
-      handleChange
-    } = this.props;
-    handleChange('css', css);
+  getCSS() {
+    const css = document.querySelector('div.has-focus')?.style.cssText;
+    if (css !== null) {
+      this.handleCSSChange(css);
+    }
   }
 
   render() {
@@ -77,15 +83,18 @@ class MyEditor extends React.Component {
       handleChange,
     } = this.props;
     return (
-      <div key={`is-mounted-${mounted}`}>
+      <div key={`is-mounted-${mounted}`} onClick={() => {this.getCSS()}}>
         <EditorProvider
           slotBefore={
             <>
               <MenuBar />
-              <CSSEditor
+              <input 
+                type='textarea'
+                value={css}
+                onChange={(e) => {this.handleCSSChange(e.target.value)}}
+              />
+              <CSSEditorButton
                 css={css}
-                handleChange={this.handleCSSChange}
-                key={css}
               />
             </>
           }
@@ -107,7 +116,6 @@ class MyEditor extends React.Component {
 
 MyEditor.propTypes = {
   content: PropTypes.string.isRequired,
-  css: PropTypes.string.isRequired,
   // handleChange
 }
 

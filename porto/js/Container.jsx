@@ -54,7 +54,6 @@ class Container extends React.Component {
     const {
       name,
       content,
-      css,
       id,
     } = container;
     fetch(`/api/v1/containers/update/`,
@@ -65,7 +64,7 @@ class Container extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, content, css, id }),
+        body: JSON.stringify({ name, content, id }),
       })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -105,7 +104,6 @@ class Container extends React.Component {
                 updateContainer={this.updateContainer}
                 deleteContainer={deleteContainer}
                 setTags={this.setTags}
-                // key={`edit-${created}`}
               />
               <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
             </>

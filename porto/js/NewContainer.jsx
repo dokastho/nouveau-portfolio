@@ -9,7 +9,6 @@ class NewContainer extends React.Component {
     this.state = {
       name: 'Untitled Container',
       content: '',
-      css: '',
       topic: ''
     };
   }
@@ -23,7 +22,6 @@ class NewContainer extends React.Component {
     const {
       name,
       content,
-      css,
       topic,
     } = this.state;
     const {
@@ -31,7 +29,7 @@ class NewContainer extends React.Component {
     } = this.props;
     return (
       <>
-        <div className={`create-container ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { createContainer({name, content, css, topic}) }}>Create a new container</div>
+        <div className={`create-container ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { createContainer({name, content, topic}) }}>Create a new container</div>
       </>
     );
   }
