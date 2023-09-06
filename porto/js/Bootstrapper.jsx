@@ -4,6 +4,7 @@ import Bio from './Bio';
 import Education from './Education';
 import { bioId } from './Bio';
 import { eduId } from './Education';
+import Navbar from './Navbar';
 
 const ADMIN = document.getElementById("admin").content === "True";
 
@@ -126,17 +127,21 @@ class Bootstrapper extends React.Component {
           )
         }
         <div className={isLoaded ? 'loaded' : 'loading'}>
-          <Bio
-            key={`bio-loaded-${bioContainers.length}`}
-            containerFunctions={containerFunctions}
-            containers={bioContainers}
-          />
-          {/* <Education
+          <Navbar />
+          <div className='site'>
+            <div className='top-space' />
+            <Bio
+              key={`bio-loaded-${bioContainers.length}`}
+              containerFunctions={containerFunctions}
+              containers={bioContainers}
+            />
+            {/* <Education
             key={`edu-loaded-${eduContainers.length}`}
             containerFunctions={containerFunctions}
             containers={eduContainers}
           /> */}
 
+          </div>
         </div>
       </>
     );

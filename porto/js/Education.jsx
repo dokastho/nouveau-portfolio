@@ -39,7 +39,7 @@ class Education extends React.Component {
 
     return (
       <>
-        <div className='education-wrapper'>
+        <div className='education-wrapper' id={componentId}>
           <h1>Education</h1>
           {
             containers.map((container) => {

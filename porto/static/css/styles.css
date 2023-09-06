@@ -9,6 +9,8 @@ body {
 
 /* custom classes */
 
+/* main site */
+
 .loaded {
     opacity: 1;
     transition: opacity 0.2s ease-in-out;
@@ -29,8 +31,49 @@ body {
     max-width: 8rem;
 }
 
+.site {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top-space {
+    height: 20vh;
+    width: 100%;
+}
+
 .pointer {
     cursor: pointer;
+}
+
+/* navbar */
+
+.navbar-container {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}
+
+.navbar {
+    padding: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 1.5rem;
+    z-index: 100;
+}
+
+.navbar-item {
+    border-radius: 1.5rem;
+    padding: 1rem;
+}
+
+.selected {
+    background-color: lightgray;
 }
 
 /* containers */
