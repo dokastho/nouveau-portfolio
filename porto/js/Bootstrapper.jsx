@@ -4,6 +4,8 @@ import Bio from './Bio';
 import Education from './Education';
 import { bioId } from './Bio';
 import { eduId } from './Education';
+import Experience, { expId } from './Experience';
+import Projects, { prjId } from './Projects';
 import Navbar from './Navbar';
 
 const ADMIN = document.getElementById("admin").content === "True";
@@ -112,6 +114,8 @@ class Bootstrapper extends React.Component {
 
     const bioContainers = containers.filter((container) => container.topic === bioId);
     const eduContainers = containers.filter((container) => container.topic === eduId);
+    const expContainers = containers.filter((container) => container.topic === expId);
+    const prjContainers = containers.filter((container) => container.topic === prjId);
 
     let isLoaded = true;
     Object.keys(loaded).forEach(key => {
@@ -136,11 +140,20 @@ class Bootstrapper extends React.Component {
               containers={bioContainers}
             />
             <Education
-            key={`edu-loaded-${eduContainers.length}`}
-            containerFunctions={containerFunctions}
-            containers={eduContainers}
-          />
-
+              key={`edu-loaded-${eduContainers.length}`}
+              containerFunctions={containerFunctions}
+              containers={eduContainers}
+            />
+            <Experience
+              key={`exp-loaded-${expContainers.length}`}
+              containerFunctions={containerFunctions}
+              containers={expContainers}
+            />
+            <Projects
+              key={`prj-loaded-${prjContainers.length}`}
+              containerFunctions={containerFunctions}
+              containers={prjContainers}
+            />
           </div>
         </div>
       </>

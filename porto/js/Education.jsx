@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import Container from './Container';
 import NewContainer from './NewContainer';
+import { ADMIN } from './Bootstrapper';
 
 const componentId = "Education";
 
@@ -29,7 +30,7 @@ class Education extends React.Component {
       containers
     } = this.state;
     const {
-      containerFunctions
+      containerFunctions,
     } = this.props;
 
     const {
@@ -40,15 +41,24 @@ class Education extends React.Component {
     return (
       <>
         <div className='education-wrapper' id={componentId}>
-          <h1>Education</h1>
           {
             containers.map((container) => {
               return (
-                <Container key={`${componentId}-container-${container.id}`} deleteContainer={deleteContainer} container={container} />
+                <Container
+                  key={`${componentId}-container-${container.id}`}
+                  container={container}
+                  deleteContainer={deleteContainer}
+                />
               )
             })
           }
-          <NewContainer key={`${componentId}-container-new`} createContainer={createContainer} topic={componentId} />
+          {
+            ADMIN ? <NewContainer
+              key={`${componentId}-container-new`}
+              createContainer={createContainer}
+              topic={componentId}
+            /> : null
+          }
         </div>
       </>
     );

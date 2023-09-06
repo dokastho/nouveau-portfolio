@@ -18,10 +18,12 @@ class Container extends React.Component {
         created: '',
         tags: [],
       },
+      hovering: false,
       selected: false,
     };
     this.updateContainer = this.updateContainer.bind(this);
     this.toggleSelect = this.toggleSelect.bind(this);
+    this.setHover = this.setHover.bind(this);
     this.setTags = this.setTags.bind(this);
   }
 
@@ -33,6 +35,10 @@ class Container extends React.Component {
     this.setState({
       container
     });
+  }
+
+  setHover(b) {
+    this.setState({ hovering: b });
   }
 
   toggleSelect() {
@@ -81,7 +87,8 @@ class Container extends React.Component {
   render() {
     const {
       selected,
-      container
+      container,
+      hovering,
     } = this.state;
     const {
       name,
@@ -100,31 +107,45 @@ class Container extends React.Component {
           selected ? (
             <>
               <div className='container'>
-                <div className='container-colored-stripe' />
-                <div className='container-content'>
-                  <EditContainer
-                    containerContent={container}
-                    updateContainer={this.updateContainer}
-                    deleteContainer={deleteContainer}
-                    setTags={this.setTags}
-                  />
-                  <div>Updated {ts}</div>
-                  <br />
-                  <div className={`button ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
+                <div className='container-flex'>
+                  <div className='container-colored-stripe' />
+                  <div className='container-content'>
+                    <EditContainer
+                      containerContent={container}
+                      updateContainer={this.updateContainer}z
+                      deleteContainer={deleteContainer}
+                      setTags={this.setTags}
+                    />
+                    <br />
+                    <div className={`button ${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
+                  </div>
+                </div>
+                <div className='updator center'>
+                  Updated {ts}
                 </div>
               </div>
             </>
           ) : (
-            <div key={`view-${created}`} className={`container ${ADMIN ? 'pointer raise' : 'normal'}`} onClick={ADMIN ? () => { this.toggleSelect() } : null}>
-              <div className='container-colored-stripe' />
-              <div className='container-content'>
-                <HTMLWrapper content={content} />
-                <TagBank
-                  key={`${id}-tag-bank-${tags.length}`}
-                  tags={tags}
-                  containerId={id}
-                />
-                <div>Updated {ts}</div>
+            <div
+              key={`view-${created}-${id}`}
+              className={`container ${ADMIN ? 'pointer raise transition' : 'normal'}`}
+              onClick={ADMIN ? () => { this.toggleSelect() } : null}
+              onMouseOver={() => {this.setHover(true)}}
+              onMouseLeave={() => {this.setHover(false)}}
+            >
+              <div className='container-flex'>
+                <div className='container-colored-stripe' />
+                <div className='container-content'>
+                  <HTMLWrapper content={content} />
+                  <TagBank
+                    key={`${id}-tag-bank-${tags.length}`}
+                    tags={tags}
+                    containerId={id}
+                  />
+                </div>
+              </div>
+              <div className={`updator center transition ${hovering ? 'show' : 'hide'}`}>
+                Updated {ts}
               </div>
             </div>
           )

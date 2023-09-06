@@ -7,6 +7,12 @@ body {
     padding: 0px;
 }
 
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
 /* custom classes */
 
 /* main site */
@@ -51,24 +57,33 @@ body {
     margin-right: auto;
 }
 
-.raise {
+.transition {
     transition: all 0.2s ease-in-out;
 }
 
 .raise:hover {
     transform: translateX(-0.5rem);
-    transition: all 0.2s ease-in-out;
+}
+
+.show {
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0;
 }
 
 /* navbar */
 
 .navbar-container {
     position: fixed;
+    z-index: 100;
     top: 0px;
     width: 100%;
 }
 
 .navbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 0.1rem;
     margin-top: 3rem;
     margin-left: auto;
@@ -79,7 +94,6 @@ body {
     align-items: center;
     background-color: white;
     border-radius: 1.5rem;
-    z-index: 100;
 }
 
 .navbar-item {
@@ -104,7 +118,8 @@ body {
     outline: none;
 }
 
-.css-editor, .raw-html {
+.css-editor,
+.raw-html {
     font-family: 'Courier New', Courier, monospace;
     width: 50%;
     margin: 1rem;
@@ -122,9 +137,13 @@ body {
 
 .container {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    display: flex;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.container-flex {
+    display: flex;
 }
 
 .container-content {
@@ -140,6 +159,12 @@ body {
     /* background-color: green; */
 }
 
+.updator {
+    width: fit-content;
+    padding-bottom: 0.25rem;
+    color: gray;
+}
+
 /* tags */
 
 .tag-bank {
@@ -153,7 +178,8 @@ body {
     border-radius: 0.5rem;
 }
 
-.tag, .create-tag {
+.tag,
+.create-tag {
     border-radius: 0.25rem;
     padding: 0.5rem;
     margin: 0.5rem;
@@ -167,4 +193,3 @@ body {
 .create-tag:active {
     background-color: gray;
 }
-

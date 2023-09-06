@@ -41,7 +41,6 @@ class Bio extends React.Component {
     return (
       <>
         <div className='bio-wrapper' id={componentId}>
-          <h1>Bio</h1>
           {
             containers.map((container) => {
               return (

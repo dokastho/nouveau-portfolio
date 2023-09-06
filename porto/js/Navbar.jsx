@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import { eduId } from './Education';
 import { bioId } from './Bio';
+import { expId } from './Experience';
+import { prjId } from './Projects';
 
-const componentIds = [bioId, eduId]
+const componentIds = [bioId, eduId, expId, prjId]
 
 class Navbar extends React.Component {
 
