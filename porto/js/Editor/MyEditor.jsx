@@ -83,15 +83,11 @@ class MyEditor extends React.Component {
       handleChange,
     } = this.props;
     return (
-      <div key={`is-mounted-${mounted}`} onClick={() => {this.getCSS()}}>
+      <div key={`is-mounted-${mounted}`} onClick={() => { this.getCSS() }}>
         <EditorProvider
           slotBefore={
             <>
               <MenuBar />
-              <textarea
-                value={css}
-                onChange={(e) => {this.handleCSSChange(e.target.value)}}
-              />
               <CSSEditorButton
                 css={css}
               />
@@ -102,7 +98,14 @@ class MyEditor extends React.Component {
               <ContentHandler
                 handleChange={handleChange}
               />
-              <RawHTML />
+              <div className='extra-container-info'>
+                <textarea
+                  className='css-editor'
+                  value={css}
+                  onChange={(e) => { this.handleCSSChange(e.target.value) }}
+                />
+                <RawHTML />
+              </div>
             </>
           }
           extensions={extensions}

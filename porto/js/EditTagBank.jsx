@@ -171,8 +171,10 @@ class EditTagBank extends React.Component {
               )
             })
           }
-          <div>Available Tags</div>
-          <hr />
+        </div>
+        <div>Available Tags</div>
+        <hr />
+        <div className='tag-bank'>
           {
             availableTags.map((tag) => {
               return (

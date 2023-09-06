@@ -99,29 +99,35 @@ class Container extends React.Component {
         {
           selected ? (
             <>
-              <EditContainer
-                containerContent={container}
-                updateContainer={this.updateContainer}
-                deleteContainer={deleteContainer}
-                setTags={this.setTags}
-              />
-              <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
+              <div className='container'>
+                <div className='container-colored-stripe' />
+                <div className='container-content'>
+                  <EditContainer
+                    containerContent={container}
+                    updateContainer={this.updateContainer}
+                    deleteContainer={deleteContainer}
+                    setTags={this.setTags}
+                  />
+                  <div className={`${ADMIN ? 'pointer' : 'normal'}`} onClick={() => { this.toggleSelect() }}>Done</div>
+                  <div>Updated {ts}</div>
+                </div>
+              </div>
             </>
           ) : (
-            <div key={`view-${created}`} className={`container ${ADMIN ? 'pointer' : 'normal'}`} onClick={ADMIN ? () => { this.toggleSelect() } : null}>
-              <h1 className='container-name'>{name}</h1>
+            <div key={`view-${created}`} className={`container ${ADMIN ? 'pointer raise' : 'normal'}`} onClick={ADMIN ? () => { this.toggleSelect() } : null}>
+              <div className='container-colored-stripe' />
               <div className='container-content'>
                 <HTMLWrapper content={content} />
+                <TagBank
+                  key={`${id}-tag-bank-${tags.length}`}
+                  tags={tags}
+                  containerId={id}
+                />
+                <div>Updated {ts}</div>
               </div>
-              <TagBank
-                key={`${id}-tag-bank-${tags.length}`}
-                tags={tags}
-                containerId={id}
-              />
             </div>
           )
         }
-        <div>Updated {ts}</div>
       </>
     );
   }
