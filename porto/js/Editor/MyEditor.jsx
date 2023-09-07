@@ -5,6 +5,7 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
 import Focus from '@tiptap/extension-focus'
+import Image from '@tiptap/extension-image'
 import { EditorProvider } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
@@ -16,6 +17,8 @@ import CSSEditorButton from './CSSEditor'
 import PropTypes from 'prop-types';
 import React from 'react'
 import ContentHandler from './ContentHandler'
+import ImageMenu from './ImageMenu'
+import AddImage from './AddImage'
 
 
 const extensions = [
@@ -36,6 +39,7 @@ const extensions = [
     mode: 'shallowest',
   }),
   Typography,
+  Image,
   Div,
 ]
 
@@ -46,9 +50,11 @@ class MyEditor extends React.Component {
       content: '',
       css: '',
       mounted: false,
+      url: null,
     };
     this.handleCSSChange = this.handleCSSChange.bind(this);
     this.getCSS = this.getCSS.bind(this);
+    this.setUrl = this.setUrl.bind(this);
   }
 
   componentDidMount() {
@@ -73,11 +79,16 @@ class MyEditor extends React.Component {
     }
   }
 
+  setUrl(url) {
+    this.setState({ url });
+  }
+
   render() {
     const {
       content,
       css,
       mounted,
+      url,
     } = this.state;
     const {
       handleChange,
@@ -91,6 +102,8 @@ class MyEditor extends React.Component {
               <CSSEditorButton
                 css={css}
               />
+              <ImageMenu callback={this.setUrl} />
+              <AddImage url={url} callback={this.setUrl} />
             </>
           }
           slotAfter={

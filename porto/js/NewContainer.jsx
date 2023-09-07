@@ -28,7 +28,7 @@ class NewContainer extends React.Component {
     } = this.props;
     return (
       <>
-        <div className='button center' onClick={() => { createContainer({ name, content, topic }) }}>Create a new {topic} container</div>
+        <div className='create-container button center' onClick={() => { createContainer({ name, content, topic }) }}>Create a new {topic} container</div>
       </>
     );
   }
