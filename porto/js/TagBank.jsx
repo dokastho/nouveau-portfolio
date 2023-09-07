@@ -19,7 +19,7 @@ class TagBank extends React.Component {
           {
             tags.map((tag) => {
               return (
-                <Tag key={`${containerId}-tag-${tag.name}`} tag={tag} />
+                <Tag key={`${containerId}-tag-${tag.id}`} tag={tag} />
               )
             })
           }

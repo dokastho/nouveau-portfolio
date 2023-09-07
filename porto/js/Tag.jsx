@@ -34,7 +34,7 @@ class Tag extends React.Component {
     } = tag;
     return (
       <>
-        <div className='tag' style={{ background: `#${colorHex}` }}>
+        <div className='tag' style={{ background: `#${colorHex}20`, color: `#${colorHex}` }}>
           {name}
         </div>
       </>

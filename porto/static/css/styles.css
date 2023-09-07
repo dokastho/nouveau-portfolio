@@ -131,6 +131,10 @@ img {
 
 /* containers */
 
+.has-focus {
+    background-color: aliceblue;
+}
+
 .tiptap {
     outline: none;
 }

@@ -36,7 +36,7 @@ const extensions = [
   }),
   Focus.configure({
     className: 'has-focus',
-    mode: 'shallowest',
+    mode: 'deepest',
   }),
   Typography,
   Image,

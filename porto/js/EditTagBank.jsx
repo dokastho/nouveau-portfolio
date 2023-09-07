@@ -156,12 +156,12 @@ class EditTagBank extends React.Component {
     } = this.props;
     return (
       <>
-        <div className='tag-bank'>
+        <div className='tag-bank' key={`edit-tags-${tags.length}`}>
           {
             tags.map((tag, index) => {
               return (
                 <EditTag
-                  key={`${containerId}-tag-${tag.name}`}
+                  key={`${containerId}-edit-tag-${tag.id}`}
                   tag={tag}
                   index={index}
                   setTag={this.setTag}

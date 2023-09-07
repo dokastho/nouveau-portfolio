@@ -112,7 +112,7 @@ class Container extends React.Component {
                   <div className='container-content'>
                     <EditContainer
                       containerContent={container}
-                      updateContainer={this.updateContainer}z
+                      updateContainer={this.updateContainer} z
                       deleteContainer={deleteContainer}
                       setTags={this.setTags}
                     />
@@ -130,8 +130,8 @@ class Container extends React.Component {
               key={`view-${created}-${id}`}
               className={`container ${ADMIN ? 'pointer raise transition' : 'normal'}`}
               onClick={ADMIN ? () => { this.toggleSelect() } : null}
-              onMouseOver={() => {this.setHover(true)}}
-              onMouseLeave={() => {this.setHover(false)}}
+              onMouseOver={() => { this.setHover(true) }}
+              onMouseLeave={() => { this.setHover(false) }}
             >
               <div className='container-flex'>
                 <div className='container-colored-stripe' />
