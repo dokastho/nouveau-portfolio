@@ -57,7 +57,7 @@ class Navbar extends React.Component {
                 return (
                   <a href={`#${componentId}`} key={componentId}>
                     <div
-                      className={`navbar-item${selected === componentId ? ' selected' : ''}`}
+                      className={`navbar-item transition${selected === componentId ? ' selected' : ''}`}
                       onClick={() => { this.selectId(componentId) }}
                     >
                       {componentId}
