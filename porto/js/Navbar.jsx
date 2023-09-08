@@ -15,6 +15,29 @@ class Navbar extends React.Component {
       selected: bioId,
     }
     this.selectId = this.selectId.bind(this);
+    this.updateTopicOnScroll = this.updateTopicOnScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.updateTopicOnScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.updateTopicOnScroll);
+  }
+
+  updateTopicOnScroll() {
+    const currentHeight = window.scrollY;
+    let componentHeight = 0;
+    for (let index = 0; index < componentIds.length; index++) {
+      const componentId = componentIds[index];
+      const nextComponentHeight = componentHeight + document.getElementById(componentId).scrollHeight;
+      if (currentHeight < nextComponentHeight && currentHeight > componentHeight) {
+        this.selectId(componentId);
+        return;
+      }
+      componentHeight = nextComponentHeight;
+    }
   }
 
   selectId(componentId) {
