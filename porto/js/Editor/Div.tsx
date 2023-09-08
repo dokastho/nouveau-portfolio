@@ -14,6 +14,10 @@ declare module '@tiptap/core' {
        * set style attributes
        */
       setStyles: (styleString: string) => ReturnType,
+      /**
+       * set node to div
+       */
+      setNode: () => ReturnType,
     }
   }
 }

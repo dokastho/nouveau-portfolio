@@ -49,7 +49,10 @@ const Div = Node.create({
       },
       setStyles: (styleString) => ({ commands }) => {
         return commands.updateAttributes(this.name, { style: styleString });
-      }
+      },
+      setNode: () => ({ commands }) => {
+        return commands.setNode(this.name);
+      },
     }
   },
 });

@@ -73,7 +73,7 @@ class MyEditor extends React.Component {
   }
 
   getCSS() {
-    const css = document.querySelector('div.has-focus')?.style.cssText;
+    const css = document.querySelector('*.has-focus')?.parentElement.style.cssText;
     if (css !== null) {
       this.handleCSSChange(css);
     }

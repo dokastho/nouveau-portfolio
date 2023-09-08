@@ -170,12 +170,12 @@ const MenuBar = () => {
       >
         redo
       </button>
-      <button
-        onClick={() => editor.chain().focus().setColor('#958DF1').run()}
-        className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}
-      >
-        purple
-      </button>
+      <input
+        type="color"
+        onInput={event => editor.chain().focus().setColor(event.target.value).run()}
+        value={editor.getAttributes('textStyle').color}
+        data-testid="setColor"
+      />
     </>
   )
 }
