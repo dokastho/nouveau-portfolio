@@ -12,8 +12,7 @@ def show_index():
         "admin": True
     }
     if not logname:
-        # context["admin"] = False
-        flask.session["logname"] = "dokastho"
+        context["admin"] = False
         pass
 
     return flask.render_template("page.html", **context)

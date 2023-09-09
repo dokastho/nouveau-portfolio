@@ -61,7 +61,8 @@ img {
 }
 
 .top-space {
-    height: 9.05rem;;
+    height: 9.05rem;
+    ;
     width: 100%;
 }
 
@@ -232,7 +233,13 @@ img {
 
 .tag-bank {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
 }
 
 .edit-tag {

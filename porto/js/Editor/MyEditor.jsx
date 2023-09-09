@@ -7,6 +7,7 @@ import Typography from '@tiptap/extension-typography'
 import Focus from '@tiptap/extension-focus'
 import Image from '@tiptap/extension-image'
 import { EditorProvider } from '@tiptap/react'
+import Youtube from '@tiptap/extension-youtube'
 import StarterKit from '@tiptap/starter-kit'
 
 import MenuBar from './MenuBar'
@@ -37,6 +38,9 @@ const extensions = [
   Focus.configure({
     className: 'has-focus',
     mode: 'deepest',
+  }),
+  Youtube.configure({
+    controls: false,
   }),
   Typography,
   Image,

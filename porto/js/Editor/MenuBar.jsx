@@ -8,6 +8,18 @@ const MenuBar = () => {
     return null
   }
 
+  const addYoutubeVideo = () => {
+    const url = prompt('Enter YouTube URL')
+
+    if (url) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+        width: 640,
+        height: 480,
+      })
+    }
+  }
+
   return (
     <>
       <button
@@ -176,6 +188,7 @@ const MenuBar = () => {
         value={editor.getAttributes('textStyle').color}
         data-testid="setColor"
       />
+      <button id="add" onClick={addYoutubeVideo}>Add YouTube video</button>
     </>
   )
 }
