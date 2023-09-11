@@ -54,11 +54,11 @@ def accounts():
 
             info = {
                 "username": request.form.get('username'),
+                "old": request.form.get("old"),
                 "new": request.form.get("pass1val"),
                 "verify_new": request.form.get("pass2val"),
             }
             do_update_password(connection, info)
-            return Response(status=204)
 
         else:
             abort(400)  # invalid request
@@ -135,6 +135,9 @@ def do_update_password(connection, info):
     if info['new'] != info['verify_new']:
         abort(401)
 
+    if not check_authorization(info['username'], info['old']):
+        abort(400)
+
     new_pw_hash = create_hashed_password(info['new'])
     cur = connection.execute(
         "UPDATE users "
@@ -161,6 +164,16 @@ def login():
         # if there doesn't exist a session cookie,
         # redirect to /accounts/?target=/login/ to create one
         return redirect('/')
+    
+@porto.app.route('/accounts/password/')
+def password():
+    """Render page to update password if logged in."""
+    if 'logname' not in session:
+        abort(403)
+    context = {
+        "logname": session['logname']
+    }
+    return render_template('password.html', **context)
 
 
 @porto.app.route('/accounts/logout/', methods=['GET'])
