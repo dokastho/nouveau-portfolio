@@ -176,7 +176,7 @@ def password():
     return render_template('password.html', **context)
 
 
-@porto.app.route('/accounts/logout/', methods=['GET'])
+@porto.app.route('/accounts/logout/', methods=['POST'])
 def logout():
     """Log out user and redirects to login."""
     session.clear()
