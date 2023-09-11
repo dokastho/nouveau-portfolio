@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- login.html -->
         <title>Thomas Dokas</title>
-        <link rel="stylesheet" type="text/css" href="/static/css/reszoom-style.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/inputs.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
+        <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+        <meta id="admin" content={{admin}} />
     </head>
     <body>
         <div class="center-panel">
-            <h1><a href="/">&lt; home</a></h1>
-            <div class="resume-name"><h1>Login</h1></div>
-            <form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
-                {% if badlogin %}
-                <div style="color:red;">Incorrect username/password. Please try again</div>
-                <br />
-                {% endif %}
-                <input type="text" name="username" required/>
-                <input type="password" name="password" required/>
-                <input type="submit" value="login"/>
-                <input type="hidden" name="operation" value="login"/>
-            </form>
-            <p>
-                don't have an account?
-                <a href="/accounts/create/">create one!</a>
-            </p>
+            <h1><a href="/">Home</a></h1>
+            <div class="login center">
+                <div class="center"><h1>Login</h1></div>
+                <form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
+                    {% if badlogin %}
+                    <div style="color:red;">Incorrect username/password. Please try again</div>
+                    <br />
+                    {% endif %}
+                    <label>Username</label><br />
+                    <input type="text" name="username" required/><br /><br />
+                    <label>Password</label><br />
+                    <input type="password" name="password" required/><br /><br />
+                    <input type="submit" value="login"/>
+                    <input type="hidden" name="operation" value="login"/>
+                </form>
+            </div>
         </div>
     </body>
 </html>

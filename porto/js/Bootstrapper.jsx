@@ -154,9 +154,17 @@ class Bootstrapper extends React.Component {
               containerFunctions={containerFunctions}
               containers={prjContainers}
             />
-            <form action="/accounts/logout/" method="post" className='logout center'>
-              <input type='submit' value='Log Out' className='button' />
-            </form>
+            {
+              ADMIN ? (
+                <form action="/accounts/logout/" method="post" className='logout center'>
+                  <input type='submit' value='Log Out' className='button' />
+                </form>
+              ) : (
+                <form action="/accounts/login/" method="get" className='logout center'>
+                  <input type='submit' value='Log In' className='button' />
+                </form>
+              )
+            }
           </div>
         </div>
       </>
