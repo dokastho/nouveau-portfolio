@@ -8,6 +8,7 @@ import Focus from '@tiptap/extension-focus'
 import Image from '@tiptap/extension-image'
 import { EditorProvider } from '@tiptap/react'
 import Youtube from '@tiptap/extension-youtube'
+import Link from '@tiptap/extension-link'
 import StarterKit from '@tiptap/starter-kit'
 
 import MenuBar from './MenuBar'
@@ -41,6 +42,9 @@ const extensions = [
   }),
   Youtube.configure({
     controls: false,
+  }),
+  Link.configure({
+    openOnClick: false,
   }),
   Typography,
   Image,

@@ -55,7 +55,7 @@ class Navbar extends React.Component {
             {
               componentIds.map((componentId) => {
                 return (
-                  <a href={`#${componentId}`} key={componentId}>
+                  <a href={`#${componentId}`} className='bare' key={componentId}>
                     <div
                       className={`navbar-item transition${selected === componentId ? ' selected' : ''}`}
                       onClick={() => { this.selectId(componentId) }}
