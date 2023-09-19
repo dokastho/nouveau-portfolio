@@ -166,6 +166,14 @@ class Bootstrapper extends React.Component {
               )
             }
           </div>
+          <div className='center aw center-text'>
+            <h3 className='fancy'>
+              <em>Powered by Nouveau</em>
+            </h3>
+            <a href='https://github.com/dokastho/nouveau-portfolio' className='fancy'>learn more</a>
+          </div>
+          <br />
+          <br />
         </div>
       </>
     );

@@ -79,6 +79,20 @@ img {
     margin-right: auto;
 }
 
+.aw {
+    width: fit-content;
+}
+
+.fancy
+{
+    color: gray;
+    font-weight: lighter;
+}
+
+.center-text {
+    text-align: center;
+}
+
 .center-panel {
     margin-left: auto;
     margin-right: auto;
