@@ -27,6 +27,16 @@ case $1 in
     sqlite3 var/porto.sqlite3 < sql/schema.sql
     sqlite3 var/porto.sqlite3 < sql/data.sql
     ;;
+  "backup")
+    YEAR=`date +%Y`
+    MONTH=`date +%m`
+    DAY=`date +%d`
+    DIR=${MONTH}_${DAY}_${YEAR}
+    mkdir -p backups
+    mkdir -p backups/${DIR}
+    cp var/porto.sqlite3 backups/${DIR}/db_${DIR}.sqlite3
+    tar -czvf backups/${DIR}/images_${DIR}.tar porto/static/img
+    ;;
   "dump")
     sqlite3 -batch -line var/porto.sqlite3 'select * from users'
     sqlite3 -batch -line var/porto.sqlite3 'select * from containers'
