@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/home/dokastho/code/nouveau-portfolio/env/bin/python3
 
 import flask
 import porto
