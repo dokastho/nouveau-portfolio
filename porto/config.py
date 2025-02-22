@@ -3,8 +3,7 @@ import pathlib
 # Root of this application, useful if it doesn't occupy an entire domain
 APPLICATION_ROOT = '/'
 # Secret key for encrypting cookies
-SECRET_KEY = (b'\x8a\xac\xb5\xd4\x19\xe6\xef',
-              '\x18\xe7\xd4\x11\x05\xf3\x95\x9b\xbeD~-\xdf@[\xf8k')
+SECRET_KEY = b'\x8a\xac\xb5\xd4\x19\xe6\xef\x18\xe7\xd4\x11\x05\xf3\x95\x9b\xbeD~-\xdf@[\xf8k'
 SESSION_COOKIE_NAME = 'login'
 SITE_ROOT = pathlib.Path(__file__).resolve().parent.parent
 # File Upload to static/img/
