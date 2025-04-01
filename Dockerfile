@@ -33,6 +33,7 @@ ENV FLASK_RUN_HOST=0.0.0.0
 ENV VIRTUAL_HOST=dokastho.io
 ENV VIRTUAL_PORT=8002
 ENV PYTHONUNBUFFERED=0
+ENV PROD=1
 
 # Command to run the application
 CMD ["python3", "wsgi.py"]
